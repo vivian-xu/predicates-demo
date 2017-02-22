@@ -1,6 +1,6 @@
 <div class="second-select">
   <!-- predicate-item -->
-  <dao-select
+<!--   <dao-select
     ng-model="secondSelectCtrl.secondSelected"
     with-search="true"
     with-tab="true"
@@ -31,6 +31,15 @@
       </dao-tab>
     </dao-tabset>
 
+  </dao-select> -->
+
+  <dao-select ng-model="vm.selected1"
+            default-title="选择一个镜像">
+    <dao-option-group label="test" no-option-tip="未找到符合条件的结果">
+      <dao-option value="option.value" text="option.name" ng-repeat="option in vm.options1 "></dao-option>
+      <dao-option disabled="true" value="option.value" text="option.name" ng-repeat="option in vm.options1 "></dao-option>
+      <dao-option value="'a'" text="'text'"></dao-option>
+    </dao-option-group>
   </dao-select>
 
 </div>

@@ -5,6 +5,7 @@ import './predicate-item.scss';
 const predicateItemComponent = {
   bindings: {
     predicateDatas: '<',
+    config: '<',
     // selected: '=?',
   },
   template,

@@ -1,6 +1,7 @@
 import { data as cAdata } from './companyAttributes';
 import { data as pAdata } from './peopleAttributes';
 import { data as pEdata } from './peopleEvents';
+import { data as mAdata } from './messageAttributes';
 export const predicateDatas = [
   {
     tabType: 'people',
@@ -9,12 +10,14 @@ export const predicateDatas = [
 
     labels: [
       {
-        optionsType: 'attributes', // 可选
+        isShow: true,
+        optionsType: 'attribute', // 可选
         optionsName: '属性',
         options: pAdata,
       },
       {
-        optionsType: 'events',
+        isShow: true,
+        optionsType: 'event',
         optionsName: '事件',
         options: pEdata,
       },
@@ -26,7 +29,8 @@ export const predicateDatas = [
     isShow: true,
     labels:[
       {
-        optionsType: 'attributes',
+        isShow: true,
+        optionsType: 'attribute',
         optionsName: '属性',
         options: cAdata,
       },
@@ -39,12 +43,13 @@ export const predicateDatas = [
 
     labels: [
       {
-        optionsType: 'attributes',
+        isShow: true,
+        optionsType: 'attribute',
         optionsName: '属性',
-        // options: cAdata,
+        options: mAdata,
       },
     ]
-  }
+  },
 ];
 
 console.log('predicateDatas');
