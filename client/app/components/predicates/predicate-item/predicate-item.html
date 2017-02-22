@@ -1,0 +1,20 @@
+<div class="predicate-item">
+  <base-select
+    base-datas="predicateItemCtrl.predicateDatas"
+    base-selected="predicateItemCtrl.predicateSelected.baseSelected"
+  >
+  </base-select>
+
+  <second-select
+    second-datas="predicateItemCtrl.predicateDatas"
+    second-selected="predicateItemCtrl.predicateSelected.secondSelected"
+  >
+  </second-select>
+
+  <div>
+    <p>
+    <!-- 没显示 -->
+      baseSelected: {{predicateItemCtrl.baseSelected}}
+    </p>
+  </div>
+</div>

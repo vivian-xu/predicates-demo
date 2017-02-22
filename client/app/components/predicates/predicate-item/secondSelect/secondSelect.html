@@ -1,0 +1,37 @@
+<div class="second-select">
+  <!-- predicate-item -->
+  <dao-select
+    ng-model="secondSelectCtrl.secondSelected"
+    with-search="true"
+    with-tab="true"
+    search-placeholder="搜索条件"
+    default-title="选择过滤条件"
+  >
+
+    <dao-tabset class="dao-tabset dao-tabset-sm">
+      <dao-tab
+        ng-repeat="tab in secondSelectCtrl.secondDatas"
+        heading="{{tab.tabName}}"
+      >
+
+        <dao-option-group
+          ng-repeat="label in tab.labels"
+          label="{{label.optionsName}}"
+          no-option-tip="未找到符合条件的结果"
+          >
+
+          <dao-option
+            tab-name="{{tab.tabName}}"
+            value="option.name || option.event_name"
+            text="option.name || option.event_name"
+            ng-repeat="option in label.options">
+          </dao-option>
+
+        </dao-option-group>
+      </dao-tab>
+    </dao-tabset>
+
+  </dao-select>
+
+</div>
+
