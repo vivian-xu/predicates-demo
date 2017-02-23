@@ -1,5 +1,5 @@
 // import datas from './data';
-import { predicateDatas } from '../../mock/index';
+// import { predicateDatas } from '../../mock/index';
 
 // mock 数据
 import { data as cAdata } from '../../mock/companyAttributes';
@@ -21,7 +21,7 @@ import translateData from './translate';
 class PredicatesController {
   constructor() {
     'ngInject';
-    this.predicateDatas = predicateDatas;
+    // this.predicateDatas = predicateDatas;
     this.selectedList = [];
     this.setPredicateConfig(false);
 
@@ -34,7 +34,7 @@ class PredicatesController {
 
   $onInit() {
     console.log('this.predicates controller');
-    console.log( predicateDatas );
+    // console.log( predicateDatas );
     console.log(this.config);
     this.test = 'teststes';
 

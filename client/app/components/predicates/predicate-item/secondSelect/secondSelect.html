@@ -1,46 +1,40 @@
 <div class="second-select">
-  <!-- predicate-item -->
-<!--   <dao-select
-    ng-model="secondSelectCtrl.secondSelected"
-    with-search="true"
-    with-tab="true"
-    search-placeholder="搜索条件"
-    default-title="选择过滤条件"
-  >
-
-    <dao-tabset class="dao-tabset dao-tabset-sm">
-      <dao-tab
-        ng-repeat="tab in secondSelectCtrl.secondDatas"
-        heading="{{tab.tabName}}"
+  <dao-select
+    ng-if="secondSelectCtrl.isEvent"
+    ng-model="secondSelectCtrl.eventSelected" 
+    default-title="选择过滤条件">
+    <!-- choose event -->
+    <dao-option-group
+     
+      ng-repeat="label in secondSelectCtrl.optionDatas.labels"
+      no-option-tip="未找到符合条件的结果"
+      label="{{label.optionsName}}"
       >
+      <dao-option
+        value="option"
+        text="option.name"
+        ng-repeat="option in label.options">
+      </dao-option>
 
-        <dao-option-group
-          ng-repeat="label in tab.labels"
-          label="{{label.optionsName}}"
-          no-option-tip="未找到符合条件的结果"
-          >
-
-          <dao-option
-            tab-name="{{tab.tabName}}"
-            value="option.name || option.event_name"
-            text="option.name || option.event_name"
-            ng-repeat="option in label.options">
-          </dao-option>
-
-        </dao-option-group>
-      </dao-tab>
-    </dao-tabset>
-
-  </dao-select> -->
-
-  <dao-select ng-model="vm.selected1"
-            default-title="选择一个镜像">
-    <dao-option-group label="test" no-option-tip="未找到符合条件的结果">
-      <dao-option value="option.value" text="option.name" ng-repeat="option in vm.options1 "></dao-option>
-      <dao-option disabled="true" value="option.value" text="option.name" ng-repeat="option in vm.options1 "></dao-option>
-      <dao-option value="'a'" text="'text'"></dao-option>
     </dao-option-group>
+  </dao-select>
+
+  <dao-select
+    ng-if="!secondSelectCtrl.isEvent"
+    ng-model="secondSelectCtrl.normalSelected" 
+    default-title="选择过滤条件">
+    <!-- choose other -->
+    <dao-option-group
+      no-option-tip="未找到符合条件的结果">
+      <dao-option 
+        value="option.value"
+        text="option.name"
+        ng-repeat="option in secondSelectCtrl.optionDatas">
+      </dao-option>
+    </dao-option-group>
+  
   </dao-select>
 
 </div>
 
+<!-- secondSelected -->

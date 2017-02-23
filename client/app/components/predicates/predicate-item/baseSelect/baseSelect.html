@@ -1,7 +1,10 @@
-<div class="base-select">
+<div
+  class="base-select"
+  >
   <!-- predicate-item -->
+    <!-- ng-model="baseSelectCtrl.baseSelected" -->
   <dao-select
-    ng-model="baseSelectCtrl.baseSelected"
+    ng-model="baseSelectCtrl.selected"
     with-search="true"
     with-tab="true"
     search-placeholder="搜索条件"
@@ -19,12 +22,16 @@
           label="{{label.optionsName}}"
           no-option-tip="未找到符合条件的结果"
           >
+            <!-- value="option.name || option.event_name" -->
 
           <dao-option
             tab-name="{{tab.tabName}}"
-            value="option.name || option.event_name"
+            value="option"
             text="option.name || option.event_name"
-            ng-repeat="option in label.options">
+            ng-repeat="option in label.options"
+            ng-click="baseSelectCtrl.onhandleClick(tab.tabType, label.optionsType)"
+            >
+            <!-- onclick="{{baseSelectCtrl.onhandleClick()}}" -->
           </dao-option>
 
         </dao-option-group>
@@ -34,4 +41,6 @@
   </dao-select>
 
 </div>
+
+<!-- baseSelected -->
 
