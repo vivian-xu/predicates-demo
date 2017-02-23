@@ -1,6 +1,5 @@
 import comparison from './comparisonData';
 
-
 class SecondSelectController {
   constructor($scope) {
     'ngInject';

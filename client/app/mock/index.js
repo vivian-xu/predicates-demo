@@ -51,6 +51,3 @@ export const predicateDatas = [
     ]
   },
 ];
-
-console.log('predicateDatas');
-console.log(predicateDatas);

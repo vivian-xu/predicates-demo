@@ -6,6 +6,7 @@ const predicateItemComponent = {
   bindings: {
     predicateDatas: '<',
     config: '<',
+    lastDatas: '<',
     // selected: '=?',
   },
   template,

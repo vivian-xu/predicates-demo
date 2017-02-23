@@ -3,6 +3,7 @@ class PredicateItemController {
   constructor() {
     'ngInject';
     this.predicateSelected = {}; // predicates 结果
+    this.lastSelectDatas = {}; // 传给 lastSelect 的数据
   }
 
   $onInit() {

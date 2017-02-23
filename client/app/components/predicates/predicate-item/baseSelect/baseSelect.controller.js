@@ -29,11 +29,16 @@ class BaseSelectController {
     });
   }
 
-
   onhandleClick(tabType, labelType) {
     console.log('tabType, labelType');
     this.selectedTabType = tabType;
     this.sselectedLabelType = labelType;
+    this.baseSelected = {
+      ...this.baseSelected,
+      tabType,
+      labelType,
+    };
+    console.log(this.baseSelected);
     console.log(this.selectedTabType);
     console.log(this.sselectedLabelType);
   }

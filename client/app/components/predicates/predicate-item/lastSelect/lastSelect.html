@@ -1,0 +1,39 @@
+<div class="last-select">
+  <!-- input text -->
+    <input
+      class="dao-control"
+      type="text"
+      placeholder="请输入查询条件" />
+  <!-- input time -->
+
+  <!-- <dao-input-container ng-if="lastSelectCtrl.selected.inputType == 'absolute_time'"> -->
+    <input
+      ng-if="lastSelectCtrl.type==='datetime'"
+      type="text"
+      date-time
+      max-view="date"
+      min-view="date"
+      view="date"
+      format="YYYY-MM-DD"
+      ng-model="lastSelectCtrl.selected.inputTime"
+      ng-disabled="false"
+      auto-close="true" />
+
+  <!-- input option -->
+  <dao-select
+    ng-if="lastSelectCtrl.type==='tag' || lastSelectCtrl.type==='segment'" 
+    ng-model="lastSelectCtrl.lastSelected"
+    default-title="选择查询条件">
+    <dao-option-group no-option-tip="未找到符合条件的结果">
+
+      <dao-option 
+        value="option.value"
+        text="option.name"
+        ng-repeat="option in lastSelectCtrl.options">
+      </dao-option>
+
+  </dao-option-group>
+</dao-select>
+
+</div>
+

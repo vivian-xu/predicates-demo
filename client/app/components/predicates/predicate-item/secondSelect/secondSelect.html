@@ -1,11 +1,10 @@
 <div class="second-select">
+  <!-- choose event -->
   <dao-select
     ng-if="secondSelectCtrl.isEvent"
     ng-model="secondSelectCtrl.eventSelected" 
     default-title="选择过滤条件">
-    <!-- choose event -->
     <dao-option-group
-     
       ng-repeat="label in secondSelectCtrl.optionDatas.labels"
       no-option-tip="未找到符合条件的结果"
       label="{{label.optionsName}}"
@@ -19,11 +18,11 @@
     </dao-option-group>
   </dao-select>
 
+  <!-- choose other -->
   <dao-select
     ng-if="!secondSelectCtrl.isEvent"
     ng-model="secondSelectCtrl.normalSelected" 
     default-title="选择过滤条件">
-    <!-- choose other -->
     <dao-option-group
       no-option-tip="未找到符合条件的结果">
       <dao-option 
@@ -32,9 +31,6 @@
         ng-repeat="option in secondSelectCtrl.optionDatas">
       </dao-option>
     </dao-option-group>
-  
   </dao-select>
-
 </div>
 
-<!-- secondSelected -->

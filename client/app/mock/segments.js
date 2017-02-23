@@ -1,0 +1,50 @@
+export const data = [
+    {
+        "count": 11, 
+        "match_all": true, 
+        "created_by_admin_uuid": null, 
+        "is_deleted": false, 
+        "name": "\u6d3b\u8dc3\u7528\u6237", 
+        "created_at": 1475074126, 
+        "last_match_all_at": 1475074126, 
+        "segment_type": "user", 
+        "updated_at": 1479381077, 
+        "is_predefined": true, 
+        "visible": true, 
+        "app_uuid": "90246359", 
+        "active": true, 
+        "segment_uuid": "11317531-9b58-4c16-a76f-645c5359339a"
+    }, 
+    {
+        "count": 0, 
+        "match_all": true, 
+        "created_by_admin_uuid": null, 
+        "is_deleted": false, 
+        "name": "\u6d41\u5931\u7528\u6237", 
+        "created_at": 1475074126, 
+        "last_match_all_at": 1475074126, 
+        "segment_type": "user", 
+        "updated_at": 1479381077, 
+        "is_predefined": true, 
+        "visible": true, 
+        "app_uuid": "90246359", 
+        "active": true, 
+        "segment_uuid": "636b32ce-1156-4c28-886d-7be6843f116b"
+    }, 
+    {
+        "count": 0, 
+        "match_all": true, 
+        "created_by_admin_uuid": null, 
+        "is_deleted": false, 
+        "name": "\u65b0\u7528\u6237", 
+        "created_at": 1475074126, 
+        "last_match_all_at": 1475074126, 
+        "segment_type": "user", 
+        "updated_at": 1479381077, 
+        "is_predefined": true, 
+        "visible": true, 
+        "app_uuid": "90246359", 
+        "active": true, 
+        "segment_uuid": "88ee6db9-531b-4a48-8121-3ef0f4c3e4f0"
+    }
+];

@@ -6,6 +6,8 @@ import { data as cAdata } from '../../mock/companyAttributes';
 import { data as pAdata } from '../../mock/peopleAttributes';
 import { data as pEdata } from '../../mock/peopleEvents';
 import { data as mAdata } from '../../mock/messageAttributes';
+import { data as tags } from '../../mock/tags';
+import { data as segments } from '../../mock/segments';
 
 // 翻译
 
@@ -26,10 +28,12 @@ class PredicatesController {
     this.setPredicateConfig(false);
 
     this.translateData = translateData;
-    console.log(this.translateData);
 
     // baseSelect 的 data 
     this.baseDatas = [];
+
+    // lastSelect 的 data
+    this.lastDatas = {};
   }
 
   $onInit() {
@@ -164,10 +168,13 @@ class PredicatesController {
         // 直接放入 attribute 中, 请求的数据在 lastSelect 的数据中
         if (label === 'tag' || label === 'segment') {
           // 请求数据
+          
+          console.warn(label);
           this.lastDatas = {
             ...this.lastDatas,
             [label]: this.getDataFunctions[tab][label](),
           };
+          console.log(this.lastDatas);
 
           if (config.attribute) {
             continue;
@@ -264,10 +271,10 @@ class PredicatesController {
   }
 
   getPeopleSegments() {
-
+    return segments;
   }
   getPeopleTags() {
-
+    return tags;
   }
 
 // 获取 company 相关数据 
@@ -276,16 +283,16 @@ class PredicatesController {
   }
 
   getCompanySegments() {
-
+    return segments;
   }
   // 暂时 与 people 是同一个数据
   getCompanyTags() {
-
+    return tags;
   }
 // 获取 message 相关数据
   getMessageAttributes() {
     return mAdata;
   }
-}
+};
 
 export default PredicatesController;
