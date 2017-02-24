@@ -1,39 +1,77 @@
-<div class="last-select">
-  <!-- input text -->
-    <input
-      class="dao-control"
-      type="text"
-      placeholder="请输入查询条件" />
+      <!-- ng-model="lastSelectCtrl.lastSelected" -->
+<div
+  class="last-select"
+  ng-if="lastSelectCtrl.isShow"
+  ng-switch="lastSelectCtrl.type"
+  >
   <!-- input time -->
-
-  <!-- <dao-input-container ng-if="lastSelectCtrl.selected.inputType == 'absolute_time'"> -->
+  <div
+   ng-switch-when="datetime">
+    
+  <!-- <dao-input-container -->
+   <!-- ng-switch-when="datetime"> -->
     <input
-      ng-if="lastSelectCtrl.type==='datetime'"
       type="text"
       date-time
       max-view="date"
       min-view="date"
       view="date"
       format="YYYY-MM-DD"
-      ng-model="lastSelectCtrl.selected.inputTime"
+      ng-model="lastSelectCtrl.lastSelected"
       ng-disabled="false"
       auto-close="true" />
+  <!-- </dao-input-container> -->
+  </div>
 
-  <!-- input option -->
-  <dao-select
-    ng-if="lastSelectCtrl.type==='tag' || lastSelectCtrl.type==='segment'" 
-    ng-model="lastSelectCtrl.lastSelected"
-    default-title="选择查询条件">
-    <dao-option-group no-option-tip="未找到符合条件的结果">
+  <!-- input option tag --> 
+  <div
+    ng-switch-when="tag">
+    <dao-select
+      ng-model="lastSelectCtrl.lastSelected"
+      default-title="选择查询条件">
+      <dao-option-group no-option-tip="未找到符合条件的结果">
 
-      <dao-option 
-        value="option.value"
-        text="option.name"
-        ng-repeat="option in lastSelectCtrl.options">
-      </dao-option>
+        <dao-option 
+          value="option.tag_name"
+          text="option.tag_name"
+          ng-repeat="option in lastSelectCtrl.lastDatas.tag">
+        </dao-option>
 
-  </dao-option-group>
-</dao-select>
+      </dao-option-group>
+    </dao-select>
+  <!-- </dao-input-container> -->
+  </div>
+
+  <!-- input option segment --> 
+  <div
+    ng-switch-when="segment">
+    <dao-select
+      ng-model="lastSelectCtrl.lastSelected"
+      default-title="选择查询条件">
+      <dao-option-group no-option-tip="未找到符合条件的结果">
+
+        <dao-option 
+          value="option.segment_uuid"
+          text="option.name"
+          ng-repeat="option in lastSelectCtrl.lastDatas.segment">
+        </dao-option>
+
+      </dao-option-group>
+    </dao-select>
+  <!-- </dao-input-container> -->
+  </div>
+
+  <!-- input text -->
+  <!-- <dao-input-container -->
+  <div
+    ng-switch-default>
+    <input
+      class="dao-control"
+      ng-model="lastSelectCtrl.lastSelected"
+      type="text"
+      placeholder="请输入查询条件" />
+  <!-- </dao-input-container> -->
+  </div>
 
 </div>
 

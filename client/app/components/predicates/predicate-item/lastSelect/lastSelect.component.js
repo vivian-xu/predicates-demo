@@ -4,8 +4,9 @@ import LastSelectController from './lastSelect.controller';
 
 const lastSelectComponent = {
   bindings: {
-    lastDatas: '<',
     baseDatas: '<',
+    secondDatas: '<',
+    lastDatas: '<',
     lastSelected: '=?',
   },
   template,

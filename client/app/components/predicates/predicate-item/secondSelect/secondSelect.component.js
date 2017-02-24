@@ -4,7 +4,8 @@ import SecondSelectController from './secondSelect.controller';
 
 const secondSelectComponent = {
   bindings: {
-    secondDatas: '<',
+    baseDatas: '<',
+    // secondDatas: '<',
     secondSelected: '=?',
   },
   template,

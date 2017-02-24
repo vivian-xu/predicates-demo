@@ -2,10 +2,12 @@ class BaseSelectController {
   constructor($scope) {
     'ngInject';
     this.$scope = $scope;
-    // 最新的选择的 tabType
-    this.latestSelectedType = '';
-  }
+    // 选择的 tabType
+    this.selectedTabType = '';
+    // 选择的 labelType
+    this.selectedLabelType = '';
 
+  }
   $onInit() {
     this.showTag = true;
     this.showSegement = true;
@@ -23,24 +25,24 @@ class BaseSelectController {
       console.log(newValue);
       this.baseSelected = {
         tabType: this.selectedTabType,
-        labelType: this.sselectedLabelType,
+        labelType: this.selectedLabelType,
         data: newValue,
       };
     });
   }
 
+
   onhandleClick(tabType, labelType) {
     console.log('tabType, labelType');
     this.selectedTabType = tabType;
-    this.sselectedLabelType = labelType;
+    this.selectedLabelType = labelType;
+    console.log(this.selectedTabType);
+    console.log(this.selectedLabelType);
     this.baseSelected = {
       ...this.baseSelected,
       tabType,
       labelType,
     };
-    console.log(this.baseSelected);
-    console.log(this.selectedTabType);
-    console.log(this.sselectedLabelType);
   }
 
   createOptionTag() {

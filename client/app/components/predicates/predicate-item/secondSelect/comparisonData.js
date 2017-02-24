@@ -40,7 +40,7 @@ export default {
         optionsName: '出现次数',
         options: [
           { value_type: 'event', name: '出现次数大于', value: 'gt' },
-          { value_type: 'event', name: '出现次数小于', value: 'lt' },
+          // { value_type: 'event', name: '出现次数小于', value: 'lt' },
           { value_type: 'event', name: '出现次数等于', value: 'eq' },
           { value_type: 'event', name: '从未出现过', value: 'unknow' },
           // { value_type: 'event', name: '出现过', value: 'know' },
