@@ -1,9 +1,5 @@
 <div
-  ng-class="['predicate-item', 'clear-fix',
-  {'radius-top': predicateItemCtrl.isFirst,
-  'radius-bottom': predicateItemCtrl.isLast,
-  'radius': predicateItemCtrl.borderRadius}]">
-    {{predicateItemCtrl.isFirst && predicateItemCtrl.isLast}}
+  class="predicate-item clear-fix">
   <div class="input-item">
     <base-select
     base-datas="predicateItemCtrl.predicateDatas"

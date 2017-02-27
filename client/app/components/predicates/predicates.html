@@ -5,8 +5,6 @@
   <predicate-item
     ng-repeat="predicate in predicatesCtrl.predicates"
     predicate-select="predicatesCtrl.predicates[$index]"
-    is-first="$index===0"
-    is-last="$index===(predicatesCtrl.predicates.length-1)"
     predicate-datas="predicatesCtrl.baseDatas"
     last-datas="predicatesCtrl.lastDatas"
     config="predicatesCtrl.predicateConfig"

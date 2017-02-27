@@ -18,6 +18,7 @@ const predicateItemComponent = {
   template,
   controller: PredicateItemController,
   controllerAs: 'predicateItemCtrl',
+  replace: true,
 };
 
 export default predicateItemComponent;
