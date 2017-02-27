@@ -2,10 +2,17 @@
   <p>I'm predicates</p>
     <!-- predicate-datas="predicatesCtrl.predicateDatas" -->
 
-  <predicate-item 
+  <predicate-item
+    ng-repeat="predicate in predicatesCtrl.predicates"
+    predicate-select="predicatesCtrl.predicates[$index]"
+    is-first="$index===0"
+    is-last="$index===(predicatesCtrl.predicates.length-1)"
     predicate-datas="predicatesCtrl.baseDatas"
     last-datas="predicatesCtrl.lastDatas"
-    config="predicatesCtrl.predicateConfig" >
+    config="predicatesCtrl.predicateConfig"
+    add-item="predicatesCtrl.addItem()"
+    decrease-item="predicatesCtrl.decreaseItem($index)"
+  >
   </predicate-item>
   <!-- <predicate-item tabs="predicatesCtrl.data.predicates" selected="predicatesCtrl.selected"> </predicate-item> -->
 </div>

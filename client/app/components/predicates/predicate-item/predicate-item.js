@@ -5,6 +5,8 @@ import BaseSelectModule from './baseSelect/baseSelect';
 import SecondSelectModule from './secondSelect/secondSelect';
 import LastSelectModule from './lastSelect/lastSelect';
 
+import './predicate-item.scss';
+
 const PredicateItemModule = angular.module('predicateItem', [
     BaseSelectModule.name,
     SecondSelectModule.name,

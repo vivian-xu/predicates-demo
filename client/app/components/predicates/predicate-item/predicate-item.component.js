@@ -7,6 +7,12 @@ const predicateItemComponent = {
     predicateDatas: '<',
     config: '<',
     lastDatas: '<',
+    addItem: '&',
+    decreaseItem: '&',
+    predicateRst: '=predicateSelect',
+    // 样式
+    isFirst: '<',
+    isLast: '<',
     // selected: '=?',
   },
   template,

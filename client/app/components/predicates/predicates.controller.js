@@ -12,7 +12,7 @@ import { data as segments } from '../../mock/segments';
 // 翻译
 
 import translateData from './translate';
-// 
+//
 // 参数
 // this.predicateConfig = {
 //   people: ['attribute', 'tag', 'segment', 'messgae'],
@@ -24,12 +24,13 @@ class PredicatesController {
   constructor() {
     'ngInject';
     // this.predicateDatas = predicateDatas;
-    this.selectedList = [];
+    // predicate-item selected 存放的 list
+    this.predicates = [{}];
     this.setPredicateConfig(false);
 
     this.translateData = translateData;
 
-    // baseSelect 的 data 
+    // baseSelect 的 data
     this.baseDatas = [];
 
     // lastSelect 的 data
@@ -37,9 +38,9 @@ class PredicatesController {
   }
 
   $onInit() {
-    console.log('this.predicates controller');
+    // console.log('this.predicates controller');
     // console.log( predicateDatas );
-    console.log(this.config);
+    // console.log(this.config);
     this.test = 'teststes';
 
     // 传入设置 参数设置
@@ -50,7 +51,7 @@ class PredicatesController {
     } else {
       if (this.config) {
         this.formatConfig(this.config);
-      }      
+      }
     }
 
   // getData 方法集合
@@ -74,13 +75,30 @@ class PredicatesController {
     this.setBaseDatas();
   }
 
+  addItem() {
+    console.log('add ITEM');
+    this.predicates.push({});
+    // console.log(this.predicates);
+  }
+
+  decreaseItem(idx) {
+    console.log('decrease ITEM');
+    if (this.predicates.length < 2) {
+      return;
+    }
+    this.predicates = [
+      ...this.predicates.slice(0,idx),
+      ...this.predicates.slice(idx+1),
+    ];
+  }
+
   // 父组件传进来的 config 的 format
   formatConfig(orignalConfig) {
-    console.group('formatConfig');
-    console.log('predicateConfig');
-    console.log(this.predicateConfig);
-    console.log('orignalConfig');
-    console.log(orignalConfig);
+    // console.group('formatConfig');
+    // console.log('predicateConfig');
+    // console.log(this.predicateConfig);
+    // console.log('orignalConfig');
+    // console.log(orignalConfig);
 
     Object.keys(orignalConfig).map((tab) => {
       this.predicateConfig[tab].isShow = true;
@@ -95,13 +113,13 @@ class PredicatesController {
         ...this.predicateConfig[tab].config,
         ...tempOption,
       };
-      console.log(`${tab} Done!`);
+      // console.log(`${tab} Done!`);
     });
 
-    console.log('predicateConfig');
-    console.log(this.predicateConfig);
+    // console.log('predicateConfig');
+    // console.log(this.predicateConfig);
 
-    console.groupEnd();
+    // console.groupEnd();
   }
 
   setPredicateConfig(state) {
@@ -137,14 +155,14 @@ class PredicatesController {
   //  其中 attributes, events 传给 baseSelect
   //  tags, segment 传给 lastSelect
   setBaseDatas() {
-    console.group('setBaseDatas');
+    // console.group('setBaseDatas');
 
-    console.log(this.predicateConfig);
+    // console.log(this.predicateConfig);
 
-    // 构建 传给 3 个 select 的数据 
-    // tab 选择,暂时有 people, company, message 
+    // 构建 传给 3 个 select 的数据
+    // tab 选择,暂时有 people, company, message
     Object.keys(this.predicateConfig).forEach((tab) => {
-      console.info(`tab: ${tab}`);
+      // console.info(`tab: ${tab}`);
 
       if (!this.predicateConfig[tab].isShow || !this.predicateConfig[tab].config) {
         return;
@@ -158,37 +176,37 @@ class PredicatesController {
       // labels 中, 暂有 atrribute, event, (tag, segment)
       // tab.config 为 null / undefined 时候 会报错
       for (let label in config) {
-        console.log(`label: ${label}`);
+        // console.log(`label: ${label}`);
         if (!config.hasOwnProperty(label) || !config[label]) {
           continue;
         }
 
       // labels 中的数据
-        
+
         // 直接放入 attribute 中, 请求的数据在 lastSelect 的数据中
         if (label === 'tag' || label === 'segment') {
           // 请求数据
-          
-          console.warn(label);
+
+          // console.warn(label);
           this.lastDatas = {
             ...this.lastDatas,
             [label]: this.getDataFunctions[tab][label](),
           };
-          console.log(this.lastDatas);
+          // console.log(this.lastDatas);
 
           if (config.attribute) {
             continue;
           }
 
 
-          if (!config.attribute && 
+          if (!config.attribute &&
             !tempTabData.labels.some((item) => item.optionsType === 'attribute')) {
-            console.log('新建！！！');
+            // console.log('新建！！！');
             tempTabData.labels.push(this.createLabelData('attribute'));
           }
           const idx = tempTabData.labels.findIndex((item) => item.optionsType === 'attribute');
           if (idx + 1) {
-            console.warn(`idx: ${idx}`);
+            // console.warn(`idx: ${idx}`);
             tempTabData.labels[idx].options.push(this.createOptionData(label));
           }
 
@@ -202,8 +220,8 @@ class PredicatesController {
         }
 
         if (label === 'attribute') {
-          console.group('label === attribute');
-          console.log(tempLab);
+          // console.group('label === attribute');
+          // console.log(tempLab);
 
           if (config.tag) {
             tempLab.options.push(this.createOptionData('tag'));
@@ -211,9 +229,9 @@ class PredicatesController {
           if (config.segment) {
             tempLab.options.push(this.createOptionData('segment'));
           }
-          console.log('tempLab');
-          console.log(tempLab);
-          console.groupEnd('label === attribute');
+          // console.log('tempLab');
+          // console.log(tempLab);
+          // console.groupEnd('label === attribute');
         }
 
         tempTabData.labels.push(tempLab);
@@ -222,17 +240,17 @@ class PredicatesController {
       }
 
       this.baseDatas.push(tempTabData);
-      console.log('tempTabData');
-      console.log(tempTabData);
-      console.log(this.baseDatas);
+      // console.log('tempTabData');
+      // console.log(tempTabData);
+      // console.log(this.baseDatas);
     });
 
-    console.groupEnd();
+    // console.groupEnd();
   }
 
   // 创建 baseDatas 中的一个 Tab 的 数据 结构
   createTabData(tabType) {
-    console.log(`tabType: ${tabType}`);
+    // console.log(`tabType: ${tabType}`);
     return {
       tabType,
       tabName: this.translateData[tabType] || tabType,
@@ -242,7 +260,7 @@ class PredicatesController {
 
   // 创建 baseDatas 中的一个 label 的 数据 结构
   createLabelData(optionsType) {
-    console.log(`optionsType: ${optionsType}`);
+    // console.log(`optionsType: ${optionsType}`);
     return {
       optionsType,
       optionsName: this.translateData[optionsType] || optionsType,
@@ -251,7 +269,7 @@ class PredicatesController {
   }
 
   createOptionData(name) {
-    console.log(`option Name: ${name}`);
+    // console.log(`option Name: ${name}`);
     return {
       value_type: name,
       type: 'standard',
@@ -277,7 +295,7 @@ class PredicatesController {
     return tags;
   }
 
-// 获取 company 相关数据 
+// 获取 company 相关数据
   getCompanyAttributes() {
     return cAdata;
   }

@@ -11,8 +11,8 @@ class SecondSelectController {
   }
 
   $onInit() {
-    console.log(this.baseDatas);
-    console.info('SecondSelect Controller');
+    // console.log(this.baseDatas);
+    // console.info('SecondSelect Controller');
     this.setShowDatas(this.baseDatas);
     this.watchDatas();
   }
@@ -31,10 +31,10 @@ class SecondSelectController {
       console.log('%c CHANGE Base Select in second', 'font-size: 20px;');
 
       this.setShowDatas(newValue);
-      console.log(`newValue: `);
-      console.log(newValue);
-      console.log(`optionDatas: `);
-      console.log(this.optionDatas);
+      // console.log(`newValue: `);
+      // console.log(newValue);
+      // console.log(`optionDatas: `);
+      // console.log(this.optionDatas);
     });
 
 
@@ -51,16 +51,16 @@ class SecondSelectController {
 
       this.secondSelected = temp;
 
-      console.log('change Event!');
-      console.log(newValue);
+      // console.log('change Event!');
+      // console.log(newValue);
     });
 
     this.$scope.$watch('secondSelectCtrl.normalSelected', (newValue, oldValue) => {
       if (newValue === oldValue || this.baseDatas.event_name) {
         return;
       }
-      console.log('change Normal!');
-      console.log(newValue);
+      // console.log('change Normal!');
+      // console.log(newValue);
       this.secondSelected = newValue;
     });
   }

@@ -7,15 +7,15 @@ class LastSelectController {
   }
 
   $onInit() {
-    console.info('LastSelectController');
-    console.log(this.lastDatas);
+    // console.info('LastSelectController');
+    // console.log(this.lastDatas);
 
     this.setType();
     this.watchDatas();
   }
   watchDatas() {
     this.$scope.$watch('lastSelectCtrl.baseDatas', (newValue, oldValue) => {
-      console.log('%c CHange! baseDatas', 'font-size: 20px; color: yellow; background-color: black;');
+      // console.log('%c CHange! baseDatas', 'font-size: 20px; color: yellow; background-color: black;');
       if (newValue === oldValue) {
         return;
       }
@@ -25,26 +25,38 @@ class LastSelectController {
       if (!newValue) {
         this.type = '';
       }
-      console.log(newValue);
+      // console.log(newValue);
       this.type = newValue.value_type;
-      console.log(this.type);
+      // console.log(this.type);
     });
 
     this.$scope.$watch('lastSelectCtrl.secondDatas', (newValue, oldValue) => {
       
-      console.log('%c change Second Datas', 'color: blue; font-size: 20px;');
-      console.log(`newValue: ${newValue}`);
-      console.log(`oldValue: ${oldValue}`);
+      // console.log('%c change Second Datas', 'color: blue; font-size: 20px;');
+      // console.log(`newValue: ${newValue}`);
+      // console.log(`oldValue: ${oldValue}`);
       if (newValue === oldValue) {
         return;
       }
 
       this.isShow = this.checkIsShow();
+
+      console.log(`isShow: ${this.isShow}`);
+      console.log(this.secondDatas);
     })
   }
 
   checkIsShow() {
-    return !(this.secondDatas === 'know' || this.secondDatas === 'unknow' || !this.secondDatas);
+    if (this.secondDatas === 'know' || this.secondDatas === 'unknow' || !this.secondDatas) {
+      return false;
+    }
+
+    if (this.secondDatas.value === 'unknow') {
+      return false;
+    }
+  
+    return true;
+    // return !(this.secondDatas === 'know' || this.secondDatas === 'unknow' || !this.secondDatas);
   }
 
   setType() {

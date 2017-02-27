@@ -1,3 +1,51 @@
+$border-color: #ccd1d9;
+
+.clear-fix{zoom:1;}
+.clear-fix:after{display:block; content:'clear'; clear:both; line-height:0; visibility:hidden;}
 .predicate-item {
-  // background-color: yellow;
+  min-width: 1024px;
+  padding: 15px 18px;
+  margin: auto;
+  border: 1px solid $border-color;
+
+  &.radius-top {
+    border-radius: 4px 4px 0 0;
+  }
+  &.radius-bottom {
+    border-radius: 0 0 4px 4px;
+  }
+  &.radius {
+    border-radius: 4px;
+  }
+
+  .input-item {
+    float: left;
+    margin-right: 10px;
+  }
+
+  // .dao-select,
+  // .dao-control {
+  //   width: 100%;
+  // }
+  .dao-select-input,
+  input {
+    background-image: none;
+    border: 1px solid $border-color;
+    border-radius: 2px;
+  }
+  .filter-btn-group {
+    float: right;
+    button {
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+      background-color: inherit;
+      border: 1px solid $border-color;
+      border-radius: 50%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }

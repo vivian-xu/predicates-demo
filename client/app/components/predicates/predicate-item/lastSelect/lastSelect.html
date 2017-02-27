@@ -1,29 +1,31 @@
       <!-- ng-model="lastSelectCtrl.lastSelected" -->
+      <!-- ng-if="lastSelectCtrl.isShow" -->
 <div
   class="last-select"
-  ng-if="lastSelectCtrl.isShow"
   ng-switch="lastSelectCtrl.type"
   >
   <!-- input time -->
   <div
    ng-switch-when="datetime">
-    
+
   <!-- <dao-input-container -->
    <!-- ng-switch-when="datetime"> -->
     <input
-      type="text"
       date-time
+      type="text"
       max-view="date"
       min-view="date"
       view="date"
-      format="YYYY-MM-DD"
+      format="yyyy-MM-dd"
+      timezone="Asia/Hong_Kong"
       ng-model="lastSelectCtrl.lastSelected"
       ng-disabled="false"
       auto-close="true" />
+      <!-- format="YYYY-MM-DD" -->
   <!-- </dao-input-container> -->
   </div>
 
-  <!-- input option tag --> 
+  <!-- input option tag -->
   <div
     ng-switch-when="tag">
     <dao-select
@@ -31,7 +33,7 @@
       default-title="选择查询条件">
       <dao-option-group no-option-tip="未找到符合条件的结果">
 
-        <dao-option 
+        <dao-option
           value="option.tag_name"
           text="option.tag_name"
           ng-repeat="option in lastSelectCtrl.lastDatas.tag">
@@ -42,7 +44,7 @@
   <!-- </dao-input-container> -->
   </div>
 
-  <!-- input option segment --> 
+  <!-- input option segment -->
   <div
     ng-switch-when="segment">
     <dao-select
@@ -50,7 +52,7 @@
       default-title="选择查询条件">
       <dao-option-group no-option-tip="未找到符合条件的结果">
 
-        <dao-option 
+        <dao-option
           value="option.segment_uuid"
           text="option.name"
           ng-repeat="option in lastSelectCtrl.lastDatas.segment">
@@ -74,4 +76,3 @@
   </div>
 
 </div>
-

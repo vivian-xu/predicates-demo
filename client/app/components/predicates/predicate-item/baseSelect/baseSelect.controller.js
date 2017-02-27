@@ -11,8 +11,8 @@ class BaseSelectController {
   $onInit() {
     this.showTag = true;
     this.showSegement = true;
-    console.info('BaseSelect Controller');
-    console.log(this.baseDatas);
+    // console.info('BaseSelect Controller');
+    // console.log(this.baseDatas);
     this.watchDatas();
   }
 
@@ -22,7 +22,7 @@ class BaseSelectController {
         return;
       }
 
-      console.log(newValue);
+      // console.log(newValue);
       this.baseSelected = {
         tabType: this.selectedTabType,
         labelType: this.selectedLabelType,
@@ -33,11 +33,11 @@ class BaseSelectController {
 
 
   onhandleClick(tabType, labelType) {
-    console.log('tabType, labelType');
+    // console.log('tabType, labelType');
     this.selectedTabType = tabType;
     this.selectedLabelType = labelType;
-    console.log(this.selectedTabType);
-    console.log(this.selectedLabelType);
+    // console.log(this.selectedTabType);
+    // console.log(this.selectedLabelType);
     this.baseSelected = {
       ...this.baseSelected,
       tabType,

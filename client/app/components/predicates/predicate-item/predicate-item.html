@@ -1,40 +1,54 @@
-<div class="predicate-item">
-  <base-select
+<div
+  ng-class="['predicate-item', 'clear-fix',
+  {'radius-top': predicateItemCtrl.isFirst,
+  'radius-bottom': predicateItemCtrl.isLast,
+  'radius': predicateItemCtrl.borderRadius}]">
+    {{predicateItemCtrl.isFirst && predicateItemCtrl.isLast}}
+  <div class="input-item">
+    <base-select
     base-datas="predicateItemCtrl.predicateDatas"
     base-selected="predicateItemCtrl.predicateSelected.baseSelected"
-  >
-  </base-select>
-
-  <second-select
-    base-datas="predicateItemCtrl.predicateSelected.baseSelected.data"
-    second-selected="predicateItemCtrl.predicateSelected.secondSelected"
-  >
-  </second-select>
-
-  <last-select
-    base-datas="predicateItemCtrl.predicateSelected.baseSelected.data"
-    second-datas="predicateItemCtrl.predicateSelected.secondSelected"
-    last-datas="predicateItemCtrl.lastDatas"
-    last-selected="predicateItemCtrl.predicateSelected.lastSelected"
-  >
-  </last-select>
-
-  <div>
-    <h3>selected: </h3>
-    <p>
-     baseSelected:  <br />
-
-     {{predicateItemCtrl.predicateSelected.baseSelected}} 
-    </p>
-    <p>
-    secondSelected:  <br />
-    
-    {{predicateItemCtrl.predicateSelected.secondSelected}} 
-    </p>
-    <p>
-    lastSelected: <br />
-    
-    {{predicateItemCtrl.predicateSelected.lastSelected}}
-    </p>
+    >
+    </base-select>
+  </div>
+  <div class="input-item">
+    <second-select
+      base-datas="predicateItemCtrl.predicateSelected.baseSelected.data"
+      second-selected="predicateItemCtrl.predicateSelected.secondSelected"
+    >
+    </second-select>
+  </div>
+  <div class="input-item">
+    <last-select
+      base-datas="predicateItemCtrl.predicateSelected.baseSelected.data"
+      second-datas="predicateItemCtrl.predicateSelected.secondSelected"
+      last-datas="predicateItemCtrl.lastDatas"
+      last-selected="predicateItemCtrl.predicateSelected.lastSelected"
+    >
+    </last-select>
+  </div>
+  <div class="filter-btn-group">
+    <button type="button" ng-click="predicateItemCtrl.decreaseItem()" > - </button>
+    <button type="button" ng-click="predicateItemCtrl.addItem()" > + </button>
   </div>
 </div>
+
+<!-- <div>
+  <h3>selected: </h3>
+  <p>
+   baseSelected:  <br />
+
+   {{predicateItemCtrl.predicateSelected.baseSelected}}
+  </p>
+  <p>
+  secondSelected:  <br />
+
+  {{predicateItemCtrl.predicateSelected.secondSelected}}
+  </p>
+  <p>
+  lastSelected: <br />
+
+  {{predicateItemCtrl.predicateSelected.lastSelected}}
+  </p>
+</div>
+<h4> {{predicateItemCtrl.all}} </h4> -->
