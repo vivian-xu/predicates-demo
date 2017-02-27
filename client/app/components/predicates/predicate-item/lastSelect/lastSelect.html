@@ -1,8 +1,8 @@
       <!-- ng-model="lastSelectCtrl.lastSelected" -->
       <!-- ng-if="lastSelectCtrl.isShow" -->
 <div
-  class="last-select"
   ng-switch="lastSelectCtrl.type"
+  class="last-select"
   >
   <!-- input time -->
   <div
@@ -12,6 +12,7 @@
    <!-- ng-switch-when="datetime"> -->
     <input
       date-time
+      class="dao-select-input datetime-input"
       type="text"
       max-view="date"
       min-view="date"
