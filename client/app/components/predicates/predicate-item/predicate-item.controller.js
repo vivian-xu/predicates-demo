@@ -19,7 +19,6 @@ class PredicateItemController {
   $onInit() {
     this.all = false;
     //  border radius 样式
-    this.borderRadius = this.isFirst && this.isLast;
     this.predicateRst = {
       ...this.predicateRst,
       type: '',
@@ -94,6 +93,7 @@ class PredicateItemController {
         value_type: data.value_type,
         attribute: data.value_type,
         comparison: secondSelected,
+        // value: data.value_type === 'tag' ? lastSelected.tag_name : lastSelected.segment_uuid,
         value: lastSelected,
       };
 

@@ -33,6 +33,11 @@ export default {
     { name: '等于', value: 'eq' },
     { name: '不等于', value: 'ne' },
   ],
+  boolean: [
+    // { name: '不等于', value: 'ne' },
+    {name: '是', value: true },
+    {name: '否', value: false },
+  ],
   event: {
     labels: [
       {

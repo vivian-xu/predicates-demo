@@ -2,13 +2,15 @@
   <!-- choose event -->
   <dao-select
     ng-if="secondSelectCtrl.isEvent"
-    ng-model="secondSelectCtrl.eventSelected" 
+    disabled="!secondSelectCtrl.baseDatas"
+    ng-model="secondSelectCtrl.eventSelected"
     default-title="选择过滤条件">
     <dao-option-group
       ng-repeat="label in secondSelectCtrl.optionDatas.labels"
       no-option-tip="未找到符合条件的结果"
       label="{{label.optionsName}}"
       >
+      <!-- =secondSelectCtrl.optionDatas.labels[0].options[0] -->
       <dao-option
         value="option"
         text="option.name"
@@ -19,13 +21,15 @@
   </dao-select>
 
   <!-- choose other -->
+  <!--  -->
   <dao-select
     ng-if="!secondSelectCtrl.isEvent"
-    ng-model="secondSelectCtrl.normalSelected" 
+    disabled="!secondSelectCtrl.baseDatas"
+    ng-model="secondSelectCtrl.normalSelected"
     default-title="选择过滤条件">
     <dao-option-group
       no-option-tip="未找到符合条件的结果">
-      <dao-option 
+      <dao-option
         value="option.value"
         text="option.name"
         ng-repeat="option in secondSelectCtrl.optionDatas">
@@ -33,4 +37,3 @@
     </dao-option-group>
   </dao-select>
 </div>
-

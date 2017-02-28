@@ -1,5 +1,7 @@
 import 'bootstrap-css-only';
 import 'normalize.css';
+import moment from '../../node_modules/.2.17.1@moment/moment';
+console.log(moment);
 import '../../node_modules/dao-style/dao-color.scss';
 
 import angular from 'angular';

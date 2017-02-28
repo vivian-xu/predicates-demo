@@ -31,13 +31,7 @@ class SecondSelectController {
       console.log('%c CHANGE Base Select in second', 'font-size: 20px;');
 
       this.setShowDatas(newValue);
-      // console.log(`newValue: `);
-      // console.log(newValue);
-      // console.log(`optionDatas: `);
-      // console.log(this.optionDatas);
     });
-
-
 
     this.$scope.$watch('secondSelectCtrl.eventSelected', (newValue, oldValue) => {
       if (newValue === oldValue || !this.baseDatas.event_name) {
@@ -70,9 +64,21 @@ class SecondSelectController {
     if (object.event_name) {
       this.optionDatas = this.comparison.event;
       this.isEvent = true;
+      if (this.optionDatas) {
+        console.log(this.optionDatas);
+        this.eventSelected = this.optionDatas.labels[0].options[0];
+      }
+      console.log('eventSelected');
+      console.log(this.eventSelected);
     } else {
       this.optionDatas = !object ? [] : this.comparison[object.value_type];
       this.isEvent = false;
+      if (this.optionDatas) {
+        console.log('normalSelected');
+        console.log(this.normalSelected);
+        this.normalSelected = this.optionDatas[0].value;
+        console.log(this.normalSelected);
+      }
     }
   }
 

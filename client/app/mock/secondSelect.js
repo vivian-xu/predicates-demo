@@ -56,5 +56,4 @@ export default {
     { name: '最后一次出现早于', value: 'absolute-lt' },
     { name: '最后一次出现晚于', value: 'absolute-gt' },
   ],
-  
 }

@@ -1,79 +1,88 @@
       <!-- ng-model="lastSelectCtrl.lastSelected" -->
       <!-- ng-if="lastSelectCtrl.isShow" -->
-<div
-  ng-switch="lastSelectCtrl.type"
-  class="last-select"
-  >
-  <!-- input time -->
+<div ng-if="lastSelectCtrl.isShow">
   <div
-   ng-switch-when="datetime">
+    ng-switch="lastSelectCtrl.type"
+    class="last-select"
+    >
+    <!-- input time -->
+    <div
+     ng-switch-when="datetime">
+     <!-- "relative-lt" -->
+      <input
+        ng-if="lastSelectCtrl.secondDatas.indexOf('relative') === -1"
+        date-time
+        class="dao-select-input datetime-input"
+        type="text"
+        max-view="date"
+        min-view="date"
+        view="date"
+        format="yyyy-MM-dd"
+        timezone="Asia/Hong_Kong"
+        ng-model="lastSelectCtrl.lastSelected"
+        ng-disabled="false"
+        auto-close="true" />
+      <div ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1">
+        <input
+        class="dao-control"
+        ng-model="lastSelectCtrl.lastSelected"
+        type="text"
+        placeholder="请输入查询条件" />
+        天
+      </div>
+    </div>
 
-  <!-- <dao-input-container -->
-   <!-- ng-switch-when="datetime"> -->
-    <input
-      date-time
-      class="dao-select-input datetime-input"
-      type="text"
-      max-view="date"
-      min-view="date"
-      view="date"
-      format="yyyy-MM-dd"
-      timezone="Asia/Hong_Kong"
-      ng-model="lastSelectCtrl.lastSelected"
-      ng-disabled="false"
-      auto-close="true" />
-      <!-- format="YYYY-MM-DD" -->
-  <!-- </dao-input-container> -->
+    <!-- input option tag -->
+    <div
+      ng-switch-when="tag">
+      <dao-select
+        ng-model="lastSelectCtrl.lastSelected"
+        default-title="选择查询条件">
+        <dao-option-group no-option-tip="未找到符合条件的结果">
+
+          <!-- value="option" -->
+          <dao-option
+            value="option.tag_name"
+            text="option.tag_name"
+            ng-repeat="option in lastSelectCtrl.lastDatas.tag">
+          </dao-option>
+
+        </dao-option-group>
+      </dao-select>
+    <!-- </dao-input-container> -->
+    </div>
+
+    <!-- input option segment -->
+    <div
+      ng-switch-when="segment">
+      <dao-select
+        ng-model="lastSelectCtrl.lastSelected"
+        default-title="选择查询条件">
+        <dao-option-group no-option-tip="未找到符合条件的结果">
+
+          <!-- value="option" -->
+          <dao-option
+            value="option.segment_uuid"
+            text="option.name"
+            ng-repeat="option in lastSelectCtrl.lastDatas.segment">
+          </dao-option>
+
+        </dao-option-group>
+      </dao-select>
+    <!-- </dao-input-container> -->
+    </div>
+
+    <!-- input text -->
+    <!-- <dao-input-container -->
+    <div
+      ng-switch-default>
+      <input
+        ng-model="lastSelectCtrl.lastSelected"
+        class="dao-control"
+        type="text"
+        placeholder="请输入查询条件" />
+    <!-- </dao-input-container> -->
+    </div>
+
   </div>
-
-  <!-- input option tag -->
-  <div
-    ng-switch-when="tag">
-    <dao-select
-      ng-model="lastSelectCtrl.lastSelected"
-      default-title="选择查询条件">
-      <dao-option-group no-option-tip="未找到符合条件的结果">
-
-        <dao-option
-          value="option.tag_name"
-          text="option.tag_name"
-          ng-repeat="option in lastSelectCtrl.lastDatas.tag">
-        </dao-option>
-
-      </dao-option-group>
-    </dao-select>
-  <!-- </dao-input-container> -->
-  </div>
-
-  <!-- input option segment -->
-  <div
-    ng-switch-when="segment">
-    <dao-select
-      ng-model="lastSelectCtrl.lastSelected"
-      default-title="选择查询条件">
-      <dao-option-group no-option-tip="未找到符合条件的结果">
-
-        <dao-option
-          value="option.segment_uuid"
-          text="option.name"
-          ng-repeat="option in lastSelectCtrl.lastDatas.segment">
-        </dao-option>
-
-      </dao-option-group>
-    </dao-select>
-  <!-- </dao-input-container> -->
-  </div>
-
-  <!-- input text -->
-  <!-- <dao-input-container -->
-  <div
-    ng-switch-default>
-    <input
-      class="dao-control"
-      ng-model="lastSelectCtrl.lastSelected"
-      type="text"
-      placeholder="请输入查询条件" />
-  <!-- </dao-input-container> -->
-  </div>
-
 </div>
