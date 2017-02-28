@@ -19,9 +19,10 @@
         view="date"
         format="yyyy-MM-dd"
         timezone="Asia/Hong_Kong"
-        ng-model="lastSelectCtrl.lastSelected"
+        ng-model="lastSelectCtrl.lastSelectedDatetime"
         ng-disabled="false"
         auto-close="true" />
+        <!-- ng-model="lastSelectCtrl.lastSelected" -->
       <div ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1">
         <input
         class="dao-control"

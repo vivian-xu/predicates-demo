@@ -9,13 +9,7 @@ class LastSelectController {
   }
 
   $onInit() {
-    // console.info('LastSelectController');
-    // console.log(this.lastDatas);
-    // this.type = this.baseDatas ? this.baseDatas.value_type : '';
-    this.lastObjSelected = {};
-    // this.lastSelected = (this.type === 'tag') ? this.lastDatas.tag[0].tag_name : '';
-    // this.lastSelected = (this.type === 'tag' || this.type === 'segment') ? this.lastObjSelected : '';
-
+    this.lastSelectedDatetime = '';
     this.setType();
     this.initSelected();
     this.watchDatas();
@@ -27,12 +21,13 @@ class LastSelectController {
     } else if (this.type === 'segment') {
       this.lastSelected = this.lastDatas.segment[0].segment_uuid;
     } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
-      this.lastSelected = moment().format('YYYY-MM-DD');
+      this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
       console.log(this.lastSelected);
     } else {
       this.lastSelected = '';
     }
   }
+
   watchDatas() {
     this.$scope.$watch('lastSelectCtrl.baseDatas', (newValue, oldValue) => {
       this.isShow = this.checkIsShow();
@@ -51,10 +46,6 @@ class LastSelectController {
     });
 
     this.$scope.$watch('lastSelectCtrl.secondDatas', (newValue, oldValue) => {
-
-      // console.log('%c change Second Datas', 'color: blue; font-size: 20px;');
-      // console.log(`newValue: ${newValue}`);
-      // console.log(`oldValue: ${oldValue}`);
       if (newValue === oldValue) {
         return;
       }
@@ -66,15 +57,19 @@ class LastSelectController {
       console.log(this.secondDatas);
     });
 
-    this.$scope.$watch('lastSelectCtrl.lastObjSelected', (newValue, oldValue) => {
-      console.log('%c, CHange lastObjSelected', 'font-size: 20px;');
-      if (newValue === oldValue) {
-        return;
+    this.$scope.$watch('lastSelectCtrl.lastSelectedDatetime', (newValue, oldValue) => {
+      if (this.type === 'datetime' && newValue !== oldValue) {
+        console.info('Change date!!');
+        console.log(newValue);
+        const tempDate = moment(newValue);
+        this.lastSelected = {
+          day: tempDate.date(),
+          month: tempDate.month() + 1,
+          year: tempDate.year(),
+        };
+        console.log(this.lastSelected);
+        // this.lastSelected = this.formatDateTime(newValue);
       }
-
-      this.lastSelected = this.lastObjSelected ;
-      console.log('lastSelected');
-      console.log(this.lastSelected);
     });
   }
 
@@ -102,6 +97,15 @@ class LastSelectController {
     }
 
     this.type = this.baseDatas.value_type;
+  }
+
+  formatDateTime(date) {
+    let newdate = moment({
+      year: date.year(),
+      month: date.month(),
+      day:date.date(),
+    });
+    console.log(newdate);
   }
 
 }
