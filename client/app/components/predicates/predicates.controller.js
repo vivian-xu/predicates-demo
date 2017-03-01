@@ -281,7 +281,8 @@ class PredicatesController {
     return {
       value_type: name,
       type: 'standard',
-      name: this.translateData[name] || name,
+      // name: this.translateData[name] || name,
+      name: name,
       in_list: true,
     };
   }

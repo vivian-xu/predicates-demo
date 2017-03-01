@@ -16,7 +16,7 @@ const mockPredicates = [
     labelType: 'attribute',
     data: {
       in_list: false,
-      name: 'last_contacted',
+      name: 'company_last_seen',
       type: 'standard',
       value_type: 'datetime',
     },
@@ -33,7 +33,7 @@ const mockPredicates = [
     labelType: 'attribute',
     data: {
       in_list: false,
-      name: '标签',
+      name: 'tag',
       type: 'standard',
       value_type: 'tag',
     },
@@ -45,7 +45,7 @@ const mockPredicates = [
     labelType: 'attribute',
     data: {
       in_list: false,
-      name: '模型',
+      name: 'segment',
       type: 'standard',
       value_type: 'segment',
     },
