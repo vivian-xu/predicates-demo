@@ -16,9 +16,9 @@ class LastSelectController {
     // console.log('in Last Selected');
     // console.log('before');
     // console.log(this.lastSelected);
-    if (!this.lastSelected) {
-      this.initSelected();
-    }
+    // if (!this.lastSelected) {
+    this.initSelected();
+    // }
     // console.log('after');
     // console.log(this.lastSelected);
     this.watchDatas();
@@ -26,15 +26,24 @@ class LastSelectController {
   }
 
   initSelected() {
-    if (this.type === 'tag') {
-      this.lastSelected = this.lastDatas.tag[0].tag_name;
-    } else if (this.type === 'segment') {
-      this.lastSelected = this.lastDatas.segment[0].segment_uuid;
-    } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
-      this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
-      // console.log(this.lastSelected);
+    if (!this.lastSelected) {
+      console.log(`lastSelected: ${this.lastSelected}`);
+
+      if (this.type === 'tag') {
+        this.lastSelected = this.lastDatas.tag[0].tag_name;
+      } else if (this.type === 'segment') {
+        this.lastSelected = this.lastDatas.segment[0].segment_uuid;
+      } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
+        this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
+        console.log(this.lastSelectedDatetime);
+      } else {
+        this.lastSelected = '';
+      }
     } else {
-      this.lastSelected = '';
+      if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
+        this.lastSelectedDatetime = moment(this.lastSelected).format('YYYY-MM-DD');
+        console.warn(this.lastSelectedDatetime);
+      }
     }
   }
 
