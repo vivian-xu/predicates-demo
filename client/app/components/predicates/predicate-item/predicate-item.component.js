@@ -10,9 +10,8 @@ const predicateItemComponent = {
     addItem: '&',
     decreaseItem: '&',
     predicateRst: '=predicateSelect',
-    // 样式
-    isFirst: '<',
-    isLast: '<',
+    defaultPredicate: '<',
+
     // selected: '=?',
   },
   template,

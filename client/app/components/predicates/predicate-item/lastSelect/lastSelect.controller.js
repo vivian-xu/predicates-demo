@@ -9,10 +9,20 @@ class LastSelectController {
   }
 
   $onInit() {
+    // console.group('Last selected group!');
+
     this.lastSelectedDatetime = '';
     this.setType();
-    this.initSelected();
+    // console.log('in Last Selected');
+    // console.log('before');
+    // console.log(this.lastSelected);
+    if (!this.lastSelected) {
+      this.initSelected();
+    }
+    // console.log('after');
+    // console.log(this.lastSelected);
     this.watchDatas();
+    // console.groupEnd();
   }
 
   initSelected() {
@@ -22,7 +32,7 @@ class LastSelectController {
       this.lastSelected = this.lastDatas.segment[0].segment_uuid;
     } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
       this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
-      console.log(this.lastSelected);
+      // console.log(this.lastSelected);
     } else {
       this.lastSelected = '';
     }
@@ -53,21 +63,21 @@ class LastSelectController {
       this.isShow = this.checkIsShow();
       this.initSelected();
 
-      console.log(`isShow: ${this.isShow}`);
-      console.log(this.secondDatas);
+      // console.log(`isShow: ${this.isShow}`);
+      // console.log(this.secondDatas);
     });
 
     this.$scope.$watch('lastSelectCtrl.lastSelectedDatetime', (newValue, oldValue) => {
       if (this.type === 'datetime' && newValue !== oldValue) {
-        console.info('Change date!!');
-        console.log(newValue);
+        // console.info('Change date!!');
+        // console.log(newValue);
         const tempDate = moment(newValue);
         this.lastSelected = {
           day: tempDate.date(),
           month: tempDate.month() + 1,
           year: tempDate.year(),
         };
-        console.log(this.lastSelected);
+        // console.log(this.lastSelected);
         // this.lastSelected = this.formatDateTime(newValue);
       }
     });
@@ -105,7 +115,7 @@ class LastSelectController {
       month: date.month(),
       day:date.date(),
     });
-    console.log(newdate);
+    // console.log(newdate);
   }
 
 }

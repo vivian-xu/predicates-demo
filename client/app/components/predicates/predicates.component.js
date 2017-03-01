@@ -6,6 +6,7 @@ const predicatesComponent = {
   bindings: {
     config: '<',
     showAll: '<?',
+    defaultPredicates: '<?',
   },
   template,
   controller,

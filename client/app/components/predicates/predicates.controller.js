@@ -38,15 +38,12 @@ class PredicatesController {
   }
 
   $onInit() {
-    // console.log('this.predicates controller');
-    // console.log( predicateDatas );
-    // console.log(this.config);
     this.test = 'teststes';
 
     // 传入设置 参数设置
     // 传入 showAll = true 直接设置全部显示
     // 传入 config 部分显示
-    if (this.showAll) {
+    if (this.showAll || this.defaultPredicates) {
       this.setPredicateConfig(true);
     } else {
       if (this.config) {
@@ -73,6 +70,16 @@ class PredicatesController {
     };
 
     this.setBaseDatas();
+
+    if (this.defaultPredicates) {
+      const len = this.defaultPredicates.length;
+      // this.predicates.length = this.defaultPredicates.length;
+      // this.predicates.fill({});
+      for (let i = 0; i < len; i++) {
+        this.predicates[i] = {};
+      }
+      console.log(this.predicates);
+    }
   }
 
   addItem() {
@@ -122,6 +129,7 @@ class PredicatesController {
     // console.groupEnd();
   }
 
+  // 快速设置 predicate Config, 全显示 或者 全不显示
   setPredicateConfig(state) {
     this.predicateConfig = {
       people: {
