@@ -16,12 +16,35 @@ class PredicateItemController {
     // console.log(this.predicateRst);
   }
 
+  $onInit() {
+    this.all = false;
+
+    if (!this.predicateRst) {
+      this.predicateRst = {
+        type: '',
+        value_type: '',
+        attribute: '',
+        value: '',
+        comparison: '',
+      };
+    }
+    if (this.defaultPredicate) {
+      // console.log(this.defaultPredicate);
+      // console.log(this.predicateSelected);
+      this.initSelected();
+    } else {
+      this.watchDatas();
+    }
+    console.log(this.predicateSelected);
+    console.log('item init 完');
+  }
+
   initSelected() {
     // const { comparison, value, ...other } = this.defaultPredicate;
     if (this.defaultPredicate) {
       const { comparison, value, labelType, tabType, data } = this.defaultPredicate;
-      console.info('defaultPredicate');
-      console.log(this.defaultPredicate);
+      // console.info('defaultPredicate');
+      // console.log(this.defaultPredicate);
       // this.predicateSelected = angular.copy(this.defaultPredicate);
       // console.log(value);
       const tempObject = {
@@ -30,16 +53,9 @@ class PredicateItemController {
         // name: data.name || data.event_name,
         data,
       };
-      // console.log(this.getBaseOption(tempObject));
 
-      console.log(tempObject);
+      // console.log(tempObject);
       this.predicateSelected = {
-        // baseSelected: {
-        //   tabType,
-        //   labelType,
-        //   data: data,
-        //   // data: this.getBaseOption(tempObject),
-        // },
         baseSelected: this.getBaseOption(tempObject),
         lastSelected: value,
         secondSelected: comparison,
@@ -63,26 +79,14 @@ class PredicateItemController {
       const findItem = findOption.options.find(item => item.name === name);
 
       console.warn(findItem);
-      // return findItem;
       return {
         tabType,
         labelType,
         data: findItem ? findItem : object.data,
       };
-
-      // return this.predicateDatas
-      //   .find((tab) => tabType === tab.tabType)
-      //   .labels.find((label) => label.optionsType === labelType)
-      //   .options.find((option) => name === option.name);
-
-      // this.predicateSelected = {
-      //   ...this.predicateSelected,
-      //   baseSelected
-      // }
     } else {
       console.error(object);
       const { labelType, tabType, data: {event_name} } = object;
-
 
       const findTab = this.predicateDatas.find(tab => tabType === tabType);
       console.log(findTab);
@@ -93,7 +97,7 @@ class PredicateItemController {
       const findItem = findOption.options.find(item => item.event_name === event_name);
       // this.predicateDatas
       // return object;
-      console.log(findItem);
+      console.warn(findItem);
       return {
         tabType,
         labelType,
@@ -103,56 +107,20 @@ class PredicateItemController {
 
   }
 
-  $onInit() {
-    this.all = false;
-
-    if (this.defaultPredicate) {
-      // const { comparison, value, ...other } = this.defaultPredicate;
-      // // console.info('defaultPredicate');
-      // // this.predicateSelected = angular.copy(this.defaultPredicate);
-      // // console.log(value);
-      // this.predicateSelected = {
-      //   baseSelected: other,
-      //   lastSelected: value,
-      //   secondSelected: comparison,
-      // }
-      // console.log(this.defaultPredicate);
-      // console.log(this.predicateSelected);
-      this.initSelected();
-    }
-
-    if (!this.predicateRst) {
-      this.predicateRst = {
-        type: '',
-        value_type: '',
-        attribute: '',
-        value: '',
-        comparison: '',
-      };
-    }
-
-    // console.log(this.predicateRst);
-
-    //
-    // if (!this.predicateRst) {
-    //   this.predicateRst = {
-    //     ...this.predicateRst,
-    //     type: '',
-    //     value_type: '',
-    //     attribute: '',
-    //     value: '',
-    //     comparison: '',
-    //   };
-    // } else {
-    //   this.setDefaultDatas();
-    // }
-    // console.log('PredicateItem Controller');
-    // console.log(this.predicateSelected);
+  startWatch() {
     this.watchDatas();
+    console.log('item 开始 watch');
   }
 
   watchDatas() {
+    // this.$scope.$watch('predicateItemCtrl.baseSelected', (newValue, oldValue) => {
+    //   console.log('base');
+    //   // if (newValue )
+    //   this.predicateSelected.baseSelected = angular.copy(newValue);
+    //   console.log(newValue, oldValue);
+    // });
     this.$scope.$watch('predicateItemCtrl.predicateSelected.secondSelected', (newValue, oldValue) => {
+
       this.all = this.checkAll();
       if (this.all) {
         this.setDatas();
@@ -247,41 +215,6 @@ class PredicateItemController {
       ...tempData,
     };
     // console.log(this.predicateRst);
-  }
-
-  setDefaultDatas() {
-
-    // const { type, value_type, attribute, value, comparison } = this.predicateRst;
-
-    // this.predicateSelected
-    // const tempBaseDefault = {};
-    // const tempSecondDefault = '';
-    // const tempLastDefault = '';
-    // // tabType
-    // switch (type) {
-    //   case type.startsWith('message'):
-    //     tempBaseDefault.tabType = 'message';
-    //     // type.slice(7);
-    //     break;
-    //   case type.startsWith('company'):
-    //     tempBaseDefault.tabType = 'company';
-    //     break;
-    //   default:
-    //     tempBaseDefault.tabType = 'people';
-    // };
-    //
-    //
-    // // labelType , data.value_type
-    // if ( value_type === 'tag' || value_type === 'segment') {
-    //   tempBaseDefault.labelType = "attribute";
-    //   tempBaseDefault.data.value_type = value_type;
-    // } else if (value_type.indexOf('event') !== -1) {
-    //   tempBaseDefault.labelType = value_type;
-    // } else {
-    //   tempBaseDefault.labelType = 'attribute';
-    //   tempBaseDefault.data.value_type = value_type;
-    // }
-
   }
 }
 

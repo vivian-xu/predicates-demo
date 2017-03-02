@@ -10,7 +10,6 @@ import { data as tags } from '../../mock/tags';
 import { data as segments } from '../../mock/segments';
 
 // 翻译
-
 import translateData from './translate';
 //
 // 参数
@@ -73,8 +72,6 @@ class PredicatesController {
 
     if (this.defaultPredicates) {
       const len = this.defaultPredicates.length;
-      // this.predicates.length = this.defaultPredicates.length;
-      // this.predicates.fill({});
       for (let i = 0; i < len; i++) {
         this.predicates[i] = {};
       }
@@ -84,11 +81,16 @@ class PredicatesController {
 
   addItem() {
     console.log('add ITEM');
+    this.clearDefaultPredicates();
     this.predicates.push({});
-    // console.log(this.predicates);
+  }
+
+  clearDefaultPredicates() {
+    this.defaultPredicates = [];
   }
 
   decreaseItem(idx) {
+    this.clearDefaultPredicates();
     console.log('decrease ITEM');
     if (this.predicates.length < 2) {
       return;
@@ -101,32 +103,17 @@ class PredicatesController {
 
   // 父组件传进来的 config 的 format
   formatConfig(orignalConfig) {
-    // console.group('formatConfig');
-    // console.log('predicateConfig');
-    // console.log(this.predicateConfig);
-    // console.log('orignalConfig');
-    // console.log(orignalConfig);
-
     Object.keys(orignalConfig).map((tab) => {
       this.predicateConfig[tab].isShow = true;
       const tempOption = {};
-      // tempTab.isShow = true;
       orignalConfig[tab].forEach((option) => {
         tempOption[option] = true;
-        // this.predicateConfig[tab].config[] = true;
       });
-
       this.predicateConfig[tab].config = {
         ...this.predicateConfig[tab].config,
         ...tempOption,
       };
-      // console.log(`${tab} Done!`);
     });
-
-    // console.log('predicateConfig');
-    // console.log(this.predicateConfig);
-
-    // console.groupEnd();
   }
 
   // 快速设置 predicate Config, 全显示 或者 全不显示
@@ -163,15 +150,9 @@ class PredicatesController {
   //  其中 attributes, events 传给 baseSelect
   //  tags, segment 传给 lastSelect
   setBaseDatas() {
-    // console.group('setBaseDatas');
-
-    // console.log(this.predicateConfig);
-
     // 构建 传给 3 个 select 的数据
     // tab 选择,暂时有 people, company, message
     Object.keys(this.predicateConfig).forEach((tab) => {
-      // console.info(`tab: ${tab}`);
-
       if (!this.predicateConfig[tab].isShow || !this.predicateConfig[tab].config) {
         return;
       }
@@ -184,7 +165,6 @@ class PredicatesController {
       // labels 中, 暂有 atrribute, event, (tag, segment)
       // tab.config 为 null / undefined 时候 会报错
       for (let label in config) {
-        // console.log(`label: ${label}`);
         if (!config.hasOwnProperty(label) || !config[label]) {
           continue;
         }
@@ -200,12 +180,10 @@ class PredicatesController {
             ...this.lastDatas,
             [label]: this.getDataFunctions[tab][label](),
           };
-          // console.log(this.lastDatas);
 
           if (config.attribute) {
             continue;
           }
-
 
           if (!config.attribute &&
             !tempTabData.labels.some((item) => item.optionsType === 'attribute')) {

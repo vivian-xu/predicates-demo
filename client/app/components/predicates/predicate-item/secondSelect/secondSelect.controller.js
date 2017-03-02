@@ -11,34 +11,48 @@ class SecondSelectController {
   }
 
   $onInit() {
-    // console.group('SecondSelect onInit');
-    // console.log(this.baseDatas);
-    this.initIsEvent(this.baseDatas.data);
-    this.setShowDatas(this.baseDatas.data);
-    this.initSelected();
+    if (this.baseDatas && this.secondSelected) {
+      console.info(this.baseDatas);
+      // debugger;
+      console.log(this.secondSelected);
+      this.initIsEvent(this.baseDatas.data);
+      this.setShowDatas(this.baseDatas.data);
+      this.initSelected();
+    }
+
     this.watchDatas();
-    // console.groupEnd();
+    console.log('init second 完');
+
   }
 
 
   watchDatas() {
-
-    // this.$scope.$watch('secondSelectCtrl.baseDatas', (newValue, oldValue) => {
-    //   console.log(oldValue);
-    //   console.log(newValue);
-    // });
-
+    console.log('watch');
+    console.log(this.baseDatas);
     this.$scope.$watch('secondSelectCtrl.baseDatas', (newValue, oldValue) => {
-      if (newValue === oldValue) {
+      console.log('%c CHANGE Base Select in second', 'font-size: 20px;');
+      if (newValue === oldValue && this.optionDatas && this.optionDatas.length > 0) {
         return;
       }
-      console.log('%c CHANGE Base Select in second', 'font-size: 20px;');
+      this.initIsEvent(newValue.data);
 
+      console.log(newValue, oldValue);
       this.setShowDatas(newValue.data);
-    });
+      this.setSelected();
+    }, true);
+    // this.$scope.$watchCollection('secondSelectCtrl.baseDatas.data', (newValue, oldValue) => {
+    //   console.log('%c CHANGE Base Select data in second', 'font-size: 20px;');
+    //   console.log(newValue, oldValue);
+    //   if (newValue == oldValue) {
+    //     return;
+    //   }
+    //
+    //   this.setShowDatas(newValue);
+    // }, true);
+
 
     this.$scope.$watch('secondSelectCtrl.eventSelected', (newValue, oldValue) => {
-      if (newValue === oldValue || !this.baseDatas.data.data.event_name) {
+      if (newValue === oldValue || !this.baseDatas.data.event_name) {
         return;
       }
 
@@ -54,13 +68,16 @@ class SecondSelectController {
     });
 
     this.$scope.$watch('secondSelectCtrl.normalSelected', (newValue, oldValue) => {
-      if (newValue === oldValue || this.baseDatas.data.event_name) {
+      // if (newValue === oldValue || this.baseDatas.data.event_name) {
+      //   return;
+      // }
+      if (this.baseDatas.data.event_name) {
         return;
       }
       // console.log('change Normal!');
       // console.log(newValue);
       this.secondSelected = newValue;
-    });
+    }, true);
   }
 
   // 选择 应该显示什么数据
@@ -69,29 +86,18 @@ class SecondSelectController {
     // console.log(object);
     // if (object.event_name) {
     if (this.isEvent) {
+      console.log('事件！！！！');
       this.optionDatas = this.comparison.event;
-      // this.isEvent = true;
-      // if (this.optionDatas) {
-      //   console.log(this.optionDatas);
-      //   // this.secondSelected =
-      //   // if (this.secondSelected) {
-      //
-      //   // } else {
-      //     this.eventSelected = this.optionDatas.labels[0].options[0];
-      //   // }
-      // }
-      // console.log('eventSelected');
-      // console.log(this.eventSelected);
     } else {
       this.optionDatas = !object ? [] : this.comparison[object.value_type];
-      // this.isEvent = false;
-      // if (this.optionDatas) {
-      //   console.log('normalSelected');
-      //   console.log(this.normalSelected);
-      //   this.normalSelected = this.optionDatas[0].value;
-      //   console.log(this.normalSelected);
-      // }
     }
+
+    console.dir(this.optionDatas);
+    console.log('setShowDatas 完！');
+
+
+    // this.setSelected();
+    // this.initSelected();
   }
 
   initIsEvent(object = {}) {
@@ -99,38 +105,42 @@ class SecondSelectController {
   }
 
   initSelected() {
-
-    // console.log(`this.secondSelected: ${this.secondSelected}`);
-    // console.log(`normalSelected: ${this.normalSelected}`);
-    // console.log(`eventSelected:`);
-    // console.dir(this.eventSelected);
-    if (!this.optionDatas) {
+    if (!this.optionDatas || this.optionDatas.length < 1) {
       return;
     }
 
     if (this.isEvent) {
+      console.log('isEvent');
       let option;
       if (this.baseDatas) {
         const label = this.comparison.event.labels.find(({optionsType}) => optionsType === this.baseDatas.labelType);
-        // console.log('label');
-        // console.dir(label);
+
         option = label.options.find(({value}) => value === this.secondSelected);
-        // console.log(option);
-        // this.eventSelected = this.optionDatas.event.labels
       }
-      this.eventSelected = option ? option : this.optionDatas.labels[0].options[0]
-      // this.eventSelected = this.secondSelected ? this.secondSelected : this.optionDatas.labels[0].options[0];
+      this.eventSelected = option ? option : this.optionDatas.labels[0].options[0];
+      console.log(this.eventSelected);
+
     } else {
-      this.normalSelected = this.secondSelected ? this.secondSelected : this.optionDatas[0].value;
-      // if (this.optionDatas) {
-      //   console.log('normalSelected');
-      //   console.log(this.normalSelected);
-      //   this.normalSelected = this.optionDatas[0].value;
-      //   console.log(this.normalSelected);
-      // }
+      console.log('不是 event');
+      console.log(this.optionDatas);
+      // this.normalSelected = this.secondSelected ? this.secondSelected : this.optionDatas[0].value;
+      this.normalSelected = this.secondSelected;
+      console.log(this.normalSelected);
     }
   }
 
+  setSelected() {
+    if (!this.optionDatas || this.optionDatas.length < 1) {
+      return;
+    }
+
+    if (this.isEvent) {
+      this.eventSelected = this.optionDatas.labels[0].options[0];
+
+    } else {
+      this.normalSelected = this.optionDatas[0].value;
+    }
+  }
 }
 
 export default SecondSelectController;

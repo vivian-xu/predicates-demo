@@ -3,7 +3,7 @@ const mockPredicates = [
     tabType: 'people',
     labelType: 'attribute',
     data: {
-      in_list: false,
+      // in_list: false,
       name: 'company_name',
       type: 'standard',
       value_type: 'str',

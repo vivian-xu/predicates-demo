@@ -11,6 +11,7 @@
      <!-- "relative-lt" -->
       <input
         ng-if="lastSelectCtrl.secondDatas.indexOf('relative') === -1"
+        ng-disabled="lastSelectCtrl.isDisabled"
         date-time
         class="dao-select-input datetime-input"
         type="text"
@@ -23,9 +24,11 @@
         ng-disabled="false"
         auto-close="true" />
         <!-- ng-model="lastSelectCtrl.lastSelected" -->
-      <div ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1">
+      <div
+        ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1">
         <input
         class="dao-control"
+        ng-disabled="lastSelectCtrl.isDisabled"
         ng-model="lastSelectCtrl.lastSelected"
         type="text"
         placeholder="请输入查询条件" />
@@ -38,6 +41,7 @@
       ng-switch-when="tag">
       <dao-select
         ng-model="lastSelectCtrl.lastSelected"
+        disabled="lastSelectCtrl.isDisabled"
         default-title="选择查询条件">
         <dao-option-group no-option-tip="未找到符合条件的结果">
 
@@ -57,6 +61,7 @@
     <div
       ng-switch-when="segment">
       <dao-select
+        disabled="lastSelectCtrl.isDisabled"
         ng-model="lastSelectCtrl.lastSelected"
         default-title="选择查询条件">
         <dao-option-group no-option-tip="未找到符合条件的结果">
@@ -78,6 +83,7 @@
     <div
       ng-switch-default>
       <input
+        ng-disabled="lastSelectCtrl.isDisabled"
         ng-model="lastSelectCtrl.lastSelected"
         class="dao-control"
         type="text"

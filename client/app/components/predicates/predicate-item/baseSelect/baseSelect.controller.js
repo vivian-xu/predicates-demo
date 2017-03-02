@@ -13,7 +13,42 @@ class BaseSelectController {
     this.showSegement = true;
     // console.info('BaseSelect Controller');
     // console.log(this.baseDatas);
+    if (this.baseSelected) {
+      this.initSelected();
+    } else {
+      this.setSelected();
+    }
     this.watchDatas();
+    console.log('第一个 完');
+  }
+
+  initSelected() {
+    console.info(this.baseSelected);
+
+    // if (this.baseSelected) {
+    const { tabType, labelType, data } = this.baseSelected;
+    this.selectedTabType = tabType;
+    this.selectedLabelType = labelType;
+      // this.selected = data;
+    // } else {
+    //   if (this.baseDatas) {
+    //     this.baseSelected = {
+    //       tabType: this.baseDatas[0].tabType,
+    //       labelType: this.baseDatas[0].labels[0].optionsType,
+    //       data: this.baseDatas[0].labels[0].options[0]
+    //     };
+    //   }
+    // }
+  }
+
+  setSelected() {
+    if (this.baseDatas) {
+      this.baseSelected = {
+        tabType: this.baseDatas[0].tabType,
+        labelType: this.baseDatas[0].labels[0].optionsType,
+        data: this.baseDatas[0].labels[0].options[0]
+      };
+    }
   }
 
   watchDatas() {
@@ -21,8 +56,7 @@ class BaseSelectController {
       if (newValue === oldValue) {
         return;
       }
-
-      // console.log(newValue);
+      console.log(newValue, oldValue);
       this.baseSelected = {
         tabType: this.selectedTabType,
         labelType: this.selectedLabelType,
@@ -43,29 +77,6 @@ class BaseSelectController {
       tabType,
       labelType,
     };
-  }
-
-  createOptionTag() {
-    // return
-    const optionTag = {
-      value_type: 'str',
-      type: 'standard',
-      name: 'tag',
-      in_list: true,
-    };
-
-    return optionTag;
-  }
-
-  createOptionSegment() {
-    const optionSegment = {
-      value_type: 'str',
-      type: 'standard',
-      name: 'segment',
-      in_list: true,
-    };
-
-    return optionSegment;
   }
 }
 

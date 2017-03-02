@@ -8,6 +8,7 @@ const lastSelectComponent = {
     secondDatas: '<',
     lastDatas: '<',
     lastSelected: '=?',
+    startItemWatch: '&',
   },
   template,
   controller: LastSelectController,
