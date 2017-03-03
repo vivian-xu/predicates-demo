@@ -2,38 +2,41 @@
       <!-- ng-if="lastSelectCtrl.isShow" -->
 <div ng-if="lastSelectCtrl.isShow">
   <div
-    ng-switch="lastSelectCtrl.type"
+    ng-switch="lastSelectCtrl.model"
     class="last-select"
     >
     <!-- input time -->
     <div
      ng-switch-when="datetime">
+     <dao-input-container>
      <!-- "relative-lt" -->
+     <!-- type="text" -->
+     <!-- ng-if="lastSelectCtrl.secondDatas.indexOf('relative') === -1" -->
       <input
-        ng-if="lastSelectCtrl.secondDatas.indexOf('relative') === -1"
         ng-disabled="lastSelectCtrl.isDisabled"
         date-time
         class="dao-select-input datetime-input"
-        type="text"
         max-view="date"
         min-view="date"
         view="date"
         format="yyyy-MM-dd"
         timezone="Asia/Hong_Kong"
         ng-model="lastSelectCtrl.lastSelectedDatetime"
-        ng-disabled="false"
-        auto-close="true" />
+        auto-close="false" />
         <!-- ng-model="lastSelectCtrl.lastSelected" -->
-      <div
-        ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1">
-        <input
+      </dao-input-container>
+    </div>
+    <div
+      ng-switch-when="relative">
+
+      <input
+        ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1"
         class="dao-control"
         ng-disabled="lastSelectCtrl.isDisabled"
         ng-model="lastSelectCtrl.lastSelected"
         type="text"
         placeholder="请输入查询条件" />
-        天
-      </div>
+      天前
     </div>
 
     <!-- input option tag -->

@@ -109,7 +109,7 @@ class PredicateItemController {
 
   startWatch() {
     this.watchDatas();
-    console.log('item 开始 watch');
+    console.log('item 开始 wa');
   }
 
   watchDatas() {

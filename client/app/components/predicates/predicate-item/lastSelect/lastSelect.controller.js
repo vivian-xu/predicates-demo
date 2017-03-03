@@ -8,16 +8,12 @@ class LastSelectController {
   }
 
   $onInit() {
-    // // console.group('Last selected group!');
-    // this.isShow = this.checkIsShow();
-    //
-    // if (this.isShow) {
-    //
-    // }
+
     if (this.baseDatas && this.secondDatas ) {
       this.isShow = this.checkIsShow();
       if (this.isShow && this.lastSelected) {
         this.setType();
+        // this.setModel();
         this.initSelected();
       }
 
@@ -30,6 +26,7 @@ class LastSelectController {
       this.setSelected();
     }
     // this.initSelected();
+    this.setModel();
     this.watchDatas();
     console.info('最后一个 init 完');
   }
@@ -37,32 +34,12 @@ class LastSelectController {
   initSelected() {
     // if (!this.lastSelected) {
       // console.log(`lastSelected: ${this.lastSelected}`);
-      this.type = this.baseDatas.value_type;
+      // this.type = this.baseDatas.value_type;
       if (this.type === 'datetime' && this.secondDatas &&
        (this.secondDatas.indexOf('relative') === -1)) {
         this.lastSelectedDatetime = moment(this.lastSelected).format('YYYY-MM-DD');
         // console.warn(this.lastSelectedDatetime);
       }
-
-      // this.setSelected();
-
-    //
-    //   if (this.type === 'tag') {
-    //     this.lastSelected = this.lastDatas.tag[0].tag_name;
-    //   } else if (this.type === 'segment') {
-    //     this.lastSelected = this.lastDatas.segment[0].segment_uuid;
-    //   } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
-    //     this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
-    //     console.log(this.lastSelectedDatetime);
-    //   } else {
-    //     this.lastSelected = '';
-    //   }
-    // } else {
-    //   if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
-    //     this.lastSelectedDatetime = moment(this.lastSelected).format('YYYY-MM-DD');
-    //     console.warn(this.lastSelectedDatetime);
-    //   }
-    // }
   }
 
   setSelected() {
@@ -71,7 +48,8 @@ class LastSelectController {
       this.lastSelected = this.lastDatas.tag[0].tag_name;
     } else if (this.type === 'segment') {
       this.lastSelected = this.lastDatas.segment[0].segment_uuid;
-    } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
+    } else if (this.model === 'datetime') {
+    // } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
       this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
       console.log(this.lastSelectedDatetime);
     } else {
@@ -90,11 +68,15 @@ class LastSelectController {
       // }
       // console.log(newValue);
       if (newValue) {
-        this.type = newValue.value_type;
+        // this.type = newValue.value_type;
+        this.setType();
       }
 
       // this.initSelected();
+      this.setModel();
       this.setSelected();
+      console.log(`MODEL: ${this.model}`);
+
       // console.log(this.type);
     });
 
@@ -106,9 +88,10 @@ class LastSelectController {
       this.isShow = this.checkIsShow();
       this.isDisabled = this.checkIsDisable();
       // this.initSelected();
+      this.setModel();
       this.setSelected();
+      console.log(`MODEL: ${this.model}`);
 
-      // console.log(`isShow: ${this.isShow}`);
       // console.log(this.secondDatas);
     });
 
@@ -172,15 +155,66 @@ class LastSelectController {
   }
 
   setType() {
-    if (!this.baseDatas || !this.baseDatas.value_type) {
+    if (!this.baseDatas || !(this.baseDatas.value_type || this.baseDatas.event_name)) {
       return;
     }
     if (this.baseDatas.event_name) {
-      this.type = 'str';
+      this.type = 'event';
+      // this.type = 'str';
     } else {
       this.type = this.baseDatas.value_type;
     }
   }
+
+  /*
+    选择框类型
+    datetime,
+    relative,
+    tag,
+    segment,
+    other
+  */
+  setModel() {
+    console.log(`type: ${this.type}`);
+    console.log('secondDatas!!!');
+    console.log(this.secondDatas);
+    if (this.type === 'tag' || this.type === 'segment') {
+      this.model = this.type;
+      return;
+    }
+    if (this.type === 'datetime') {
+      if (this.secondDatas.indexOf('relative') === -1) {
+        this.model = 'datetime';
+        return;
+      } else {
+        this.model = 'relative';
+        return;
+      }
+    }
+
+    if (this.type === 'event') {
+      this.model = 'other';
+
+      if (this.secondDatas.value) {
+
+        if (this.secondDatas.value_type === 'event') {
+          this.model = 'other';
+        } else {
+          if (this.secondDatas.value.indexOf('absolute') !== -1) {
+            this.model = 'datetime';
+          } else {
+            this.model = 'relative';
+          }
+        }
+      }
+
+      return;
+    }
+
+    this.model = 'other';
+
+  }
+
 
   formatDateTime(date) {
     let newdate = moment({
