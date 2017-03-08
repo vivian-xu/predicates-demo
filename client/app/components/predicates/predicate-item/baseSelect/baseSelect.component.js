@@ -13,3 +13,4 @@ const baseSelectComponent = {
 };
 
 export default baseSelectComponent;
+// {"in_list":false,"name":"标签","type":"standard","value_type":"tag"}

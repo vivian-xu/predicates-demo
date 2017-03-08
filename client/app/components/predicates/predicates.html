@@ -1,11 +1,9 @@
 <div class="predicates">
   <p>I'm predicates</p>
-    <!-- predicate-datas="predicatesCtrl.predicateDatas" -->
-    <!-- ng-repeat="predicate in predicatesCtrl.predicates track by $index" -->
   <predicate-item
-    ng-repeat="predicate in predicatesCtrl.predicates"
-    predicate-select="predicatesCtrl.predicates[$index]"
-    default-predicate="predicatesCtrl.defaultPredicates[$index]"
+    ng-repeat="predicate in predicatesCtrl.predicatesSelect"
+    predicate-select="predicatesCtrl.predicatesSelect[$index]"
+    default-predicate="predicatesCtrl.defaultPredicatesFilter[$index]"
     predicate-datas="predicatesCtrl.baseDatas"
     last-datas="predicatesCtrl.lastDatas"
     config="predicatesCtrl.predicateConfig"
@@ -13,5 +11,4 @@
     decrease-item="predicatesCtrl.decreaseItem($index)"
   >
   </predicate-item>
-  <!-- <predicate-item tabs="predicatesCtrl.data.predicates" selected="predicatesCtrl.selected"> </predicate-item> -->
 </div>

@@ -12,43 +12,47 @@ class SecondSelectController {
 
   $onInit() {
     if (this.baseDatas && this.secondSelected) {
-      console.info(this.baseDatas);
+      // console.info(this.baseDatas);
       // debugger;
-      console.log(this.secondSelected);
+      // console.log(this.secondSelected);
       this.initIsEvent(this.baseDatas.data);
       this.setShowDatas(this.baseDatas.data);
       this.initSelected();
     }
 
     this.watchDatas();
-    console.log('init second 完');
+    // console.log('init second 完');
 
   }
 
 
   watchDatas() {
-    console.log('watch');
-    console.log(this.baseDatas);
-    this.$scope.$watch('secondSelectCtrl.baseDatas', (newValue, oldValue) => {
-      console.log('%c CHANGE Base Select in second', 'font-size: 20px;');
-      if (newValue === oldValue && this.optionDatas && this.optionDatas.length > 0) {
-        return;
-      }
-      this.initIsEvent(newValue.data);
-
-      console.log(newValue, oldValue);
-      this.setShowDatas(newValue.data);
-      this.setSelected();
-    }, true);
-    // this.$scope.$watchCollection('secondSelectCtrl.baseDatas.data', (newValue, oldValue) => {
-    //   console.log('%c CHANGE Base Select data in second', 'font-size: 20px;');
-    //   console.log(newValue, oldValue);
-    //   if (newValue == oldValue) {
+    // console.log('watch');
+    // console.log(this.baseDatas);
+    // this.$scope.$watch('secondSelectCtrl.baseDatas', (newValue, oldValue) => {
+    //   // console.log('%c CHANGE Base Select in second', 'font-size: 20px;');
+    //   if (newValue === oldValue && this.optionDatas && this.optionDatas.length > 0) {
     //     return;
     //   }
-    //
-    //   this.setShowDatas(newValue);
+    //   this.initIsEvent(newValue.data);
+
+    //   // console.log(newValue, oldValue);
+    //   this.setShowDatas(newValue.data);
+    //   this.setSelected();
     // }, true);
+
+    this.$scope.$watch('secondSelectCtrl.refresh', (newValue, oldValue) => {
+      console.log(`refresh: ${newValue}`);
+      if (newValue) {
+        console.log(newValue);
+        console.log(this.baseDatas);
+        this.initIsEvent(this.baseDatas.data);
+
+        this.setShowDatas(this.baseDatas.data);
+
+        this.setSelected();        
+      }
+    });
 
 
     this.$scope.$watch('secondSelectCtrl.eventSelected', (newValue, oldValue) => {
@@ -86,18 +90,11 @@ class SecondSelectController {
     // console.log(object);
     // if (object.event_name) {
     if (this.isEvent) {
-      console.log('事件！！！！');
+      // console.log('事件！！！！');
       this.optionDatas = this.comparison.event;
     } else {
       this.optionDatas = !object ? [] : this.comparison[object.value_type];
     }
-
-    console.dir(this.optionDatas);
-    console.log('setShowDatas 完！');
-
-
-    // this.setSelected();
-    // this.initSelected();
   }
 
   initIsEvent(object = {}) {
@@ -110,7 +107,7 @@ class SecondSelectController {
     }
 
     if (this.isEvent) {
-      console.log('isEvent');
+      // console.log('isEvent');
       let option;
       if (this.baseDatas) {
         const label = this.comparison.event.labels.find(({optionsType}) => optionsType === this.baseDatas.labelType);
@@ -118,14 +115,14 @@ class SecondSelectController {
         option = label.options.find(({value}) => value === this.secondSelected);
       }
       this.eventSelected = option ? option : this.optionDatas.labels[0].options[0];
-      console.log(this.eventSelected);
+      // console.log(this.eventSelected);
 
     } else {
-      console.log('不是 event');
-      console.log(this.optionDatas);
+      // console.log('不是 event');
+      // console.log(this.optionDatas);
       // this.normalSelected = this.secondSelected ? this.secondSelected : this.optionDatas[0].value;
       this.normalSelected = this.secondSelected;
-      console.log(this.normalSelected);
+      // console.log(this.normalSelected);
     }
   }
 

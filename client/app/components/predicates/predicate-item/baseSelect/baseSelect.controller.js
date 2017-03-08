@@ -19,11 +19,11 @@ class BaseSelectController {
       this.setSelected();
     }
     this.watchDatas();
-    console.log('第一个 完');
+    // console.log('第一个 完');
   }
 
   initSelected() {
-    console.info(this.baseSelected);
+    // console.info(this.baseSelected);
 
     // if (this.baseSelected) {
     const { tabType, labelType, data } = this.baseSelected;
@@ -52,11 +52,11 @@ class BaseSelectController {
   }
 
   watchDatas() {
-    this.$scope.$watch('baseSelectCtrl.selected', (newValue, oldValue) => {
+    this.$scope.$watch('baseSelectCtrl.baseSelected', (newValue, oldValue) => {
       if (newValue === oldValue) {
         return;
       }
-      console.log(newValue, oldValue);
+      // console.log(newValue, oldValue);
       this.baseSelected = {
         tabType: this.selectedTabType,
         labelType: this.selectedLabelType,
@@ -67,7 +67,8 @@ class BaseSelectController {
 
 
   onhandleClick(tabType, labelType) {
-    // console.log('tabType, labelType');
+    debugger;
+    console.log('tabType, labelType');
     this.selectedTabType = tabType;
     this.selectedLabelType = labelType;
     // console.log(this.selectedTabType);

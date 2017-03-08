@@ -26,18 +26,45 @@
         <!-- ng-model="lastSelectCtrl.lastSelected" -->
       </dao-input-container>
     </div>
+      <!-- ng-switch-when="relative"> -->
     <div
-      ng-switch-when="relative">
-
-      <input
-        ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1"
-        class="dao-control"
-        ng-disabled="lastSelectCtrl.isDisabled"
-        ng-model="lastSelectCtrl.lastSelected"
-        type="text"
-        placeholder="请输入查询条件" />
-      天前
+      ng-switch-when="count">
+      <dao-input-container
+        class="message-bottom no-message-icon"
+        error="lastSelectCtrl.checkNum(lastSelectCtrl.lastSelected)"
+      >
+      <!-- ng-if="lastSelectCtrl.secondDatas.indexOf('relative') !== -1" -->
+        <input
+          class="dao-control"
+          ng-disabled="lastSelectCtrl.isDisabled"
+          ng-model="lastSelectCtrl.lastSelected"
+          type="number"
+          placeholder="请输入查询条件"
+          required
+        />
+        <!-- ng-pattern="/^[0-9]/" -->
+        {{lastSelectCtrl.times ? '次' : '天前'}}
+      </dao-input-container>
     </div>
+ 
+    <div
+      ng-switch-when="int">
+      <dao-input-container
+        class="message-bottom no-message-icon"
+        error="lastSelectCtrl.checkNum(lastSelectCtrl.lastSelected)"
+      >
+        <input
+          class="dao-control"
+          ng-disabled="lastSelectCtrl.isDisabled"
+          ng-model="lastSelectCtrl.lastSelected"
+          type="number"
+          placeholder="请输入查询条件"
+          required
+        />
+        <!-- {{lastSelectCtrl.times ? '次' : '天前'}} -->
+      </dao-input-container>
+    </div>
+
 
     <!-- input option tag -->
     <div

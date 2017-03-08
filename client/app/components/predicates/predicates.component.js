@@ -4,7 +4,7 @@ import './predicates.scss';
 
 const predicatesComponent = {
   bindings: {
-    config: '<',
+    option: '<',
     showAll: '<?',
     defaultPredicates: '<?',
   },

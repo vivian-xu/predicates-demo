@@ -8,8 +8,7 @@ class LastSelectController {
   }
 
   $onInit() {
-
-    if (this.baseDatas && this.secondDatas ) {
+    if (this.baseDatas && this.baseDatas.data && this.secondDatas ) {
       this.isShow = this.checkIsShow();
       if (this.isShow && this.lastSelected) {
         this.setType();
@@ -20,7 +19,7 @@ class LastSelectController {
       this.startItemWatch();
     } else {
       this.type = 'str';
-      this.lastSelectedDatetime = '';
+      this.lastSelectedDatetime = null;
       this.isShow = true;
       this.isDisabled = true;
       this.setSelected();
@@ -28,22 +27,27 @@ class LastSelectController {
     // this.initSelected();
     this.setModel();
     this.watchDatas();
-    console.info('最后一个 init 完');
+    // console.info('最后一个 init 完');
   }
 
   initSelected() {
     // if (!this.lastSelected) {
-      // console.log(`lastSelected: ${this.lastSelected}`);
-      // this.type = this.baseDatas.value_type;
-      if (this.type === 'datetime' && this.secondDatas &&
+      // console.log(`lastSelected:`);
+      // console.log(this.lastSelected);
+      // this.type = this.baseDatas.data.value_type;
+      // if (this.type === 'datetime' && this.secondDatas &&
+      if (this.type === 'datetime' &&
        (this.secondDatas.indexOf('relative') === -1)) {
         this.lastSelectedDatetime = moment(this.lastSelected).format('YYYY-MM-DD');
-        // console.warn(this.lastSelectedDatetime);
+      }
+
+      if (this.type === 'event' && this.lastSelected) {
+        this.lastSelected = angular.copy(this.lastSelected) - 0;
       }
   }
 
   setSelected() {
-    // this.type = this.baseDatas.value_type;
+    // this.type = this.baseDatas.data.value_type;
     if (this.type === 'tag') {
       this.lastSelected = this.lastDatas.tag[0].tag_name;
     } else if (this.type === 'segment') {
@@ -51,49 +55,69 @@ class LastSelectController {
     } else if (this.model === 'datetime') {
     // } else if (this.type === 'datetime' && this.secondDatas && (this.secondDatas.indexOf('relative') === -1)) {
       this.lastSelectedDatetime = moment().format('YYYY-MM-DD');
-      console.log(this.lastSelectedDatetime);
+      // console.log(this.lastSelectedDatetime);
     } else {
-      this.lastSelected = '';
+      this.lastSelected = null;
     }
   }
 
+  checkNum(num) {
+    // console.log(`num: ${num}`);
+    // console.log(num);
+    // console.log(typeof num === 'number');
+    return (typeof num !== 'number') || num < 0;
+  }
+
   watchDatas() {
-    this.$scope.$watch('lastSelectCtrl.baseDatas', (newValue, oldValue) => {
-      this.isShow = this.checkIsShow();
-      if (newValue === oldValue) {
-        return;
-      }
-      // if (!newValue) {
-      //   this.type = '';
-      // }
-      // console.log(newValue);
+    // this.$scope.$watch('lastSelectCtrl.baseDatas', (newValue, oldValue) => {
+    //   this.isShow = this.checkIsShow();
+    //   if (newValue === oldValue) {
+    //     return;
+    //   }
+    //   // if (!newValue) {
+    //   //   this.type = '';
+    //   // }
+    //   console.log(newValue);
+    //   if (newValue) {
+    //     // this.type = newValue.value_type;
+    //     this.setType();
+    //   }
+
+    //   // this.initSelected();
+    //   this.setModel();
+    //   this.setSelected();
+    //   // console.log(`MODEL: ${this.model}`);
+
+    //   // console.log(this.type);
+    // });
+
+    // this.$scope.$watch('lastSelectCtrl.secondDatas', (newValue, oldValue) => {
+    //   if (newValue === oldValue) {
+    //     return;
+    //   }
+
+    //   this.isShow = this.checkIsShow();
+    //   this.isDisabled = this.checkIsDisable();
+    //   // this.initSelected();
+    //   this.setModel();
+    //   this.setSelected();
+    //   // console.log(`MODEL: ${this.model}`);
+
+    //   // console.log(this.secondDatas);
+    // });
+    
+    this.$scope.$watch('lastSelectCtrl.refresh', (newValue, oldValue) => {
+      console.log(`refresh: ${newValue}`);
       if (newValue) {
-        // this.type = newValue.value_type;
-        this.setType();
+        console.log(newValue);
+        console.log(this.baseDatas);
+        this.initIsEvent(this.baseDatas.data);
+
+        this.setShowDatas(this.baseDatas.data);
+
+        this.setSelected();        
       }
-
-      // this.initSelected();
-      this.setModel();
-      this.setSelected();
-      console.log(`MODEL: ${this.model}`);
-
-      // console.log(this.type);
-    });
-
-    this.$scope.$watch('lastSelectCtrl.secondDatas', (newValue, oldValue) => {
-      if (newValue === oldValue) {
-        return;
-      }
-
-      this.isShow = this.checkIsShow();
-      this.isDisabled = this.checkIsDisable();
-      // this.initSelected();
-      this.setModel();
-      this.setSelected();
-      console.log(`MODEL: ${this.model}`);
-
-      // console.log(this.secondDatas);
-    });
+    })
 
     this.$scope.$watch('lastSelectCtrl.lastSelectedDatetime', (newValue, oldValue) => {
       if (this.type === 'datetime' && newValue !== oldValue) {
@@ -114,7 +138,7 @@ class LastSelectController {
   checkIsShow() {
     // console.log('second Value');
     // console.log(this.secondDatas);
-    // if (!this.secondDatas && !this.baseDatas) {
+    // if (!this.secondDatas && !this.baseDatas.data) {
     if (!this.secondDatas) {
       return true;
     }
@@ -126,10 +150,10 @@ class LastSelectController {
       return false;
     }
 
-    console.log('cccccheck it show');
-    console.log(this.baseDatas);
+    // console.log('cccccheck it show');
+    // console.log(this.baseDatas.data);
 
-    if (this.baseDatas.value_type === 'boolean') {
+    if (this.baseDatas.data.value_type === 'boolean') {
       return false;
     }
     return true;
@@ -154,67 +178,14 @@ class LastSelectController {
     return true;
   }
 
-  setType() {
-    if (!this.baseDatas || !(this.baseDatas.value_type || this.baseDatas.event_name)) {
-      return;
-    }
-    if (this.baseDatas.event_name) {
-      this.type = 'event';
-      // this.type = 'str';
-    } else {
-      this.type = this.baseDatas.value_type;
-    }
-  }
-
   /*
     选择框类型
     datetime,
-    relative,
+    int,
     tag,
     segment,
     other
   */
-  setModel() {
-    console.log(`type: ${this.type}`);
-    console.log('secondDatas!!!');
-    console.log(this.secondDatas);
-    if (this.type === 'tag' || this.type === 'segment') {
-      this.model = this.type;
-      return;
-    }
-    if (this.type === 'datetime') {
-      if (this.secondDatas.indexOf('relative') === -1) {
-        this.model = 'datetime';
-        return;
-      } else {
-        this.model = 'relative';
-        return;
-      }
-    }
-
-    if (this.type === 'event') {
-      this.model = 'other';
-
-      if (this.secondDatas.value) {
-
-        if (this.secondDatas.value_type === 'event') {
-          this.model = 'other';
-        } else {
-          if (this.secondDatas.value.indexOf('absolute') !== -1) {
-            this.model = 'datetime';
-          } else {
-            this.model = 'relative';
-          }
-        }
-      }
-
-      return;
-    }
-
-    this.model = 'other';
-
-  }
-
 
   formatDateTime(date) {
     let newdate = moment({
@@ -225,6 +196,47 @@ class LastSelectController {
     // console.log(newdate);
   }
 
+
+  setType() {
+    if (this.baseDatas.data.event_name) {
+      if (this.secondDatas.value && this.secondDatas.value.indexOf('absolute') !== -1) {
+        this.type = 'datetime';
+      } else {
+        this.type = 'event';
+      }
+      // console.log('event');
+      // console.log('this.baseDatas.data.value');
+
+    } else {
+      this.type = this.baseDatas.data.value_type;
+      // console.log(this.baseDatas.data.value_type);
+    }
+    // console.log(`type: ${this.type}`);
+  }
+
+
+  setModel() {
+    switch(this.type) {
+      case 'tag':
+      case 'segment':
+      case 'datetime':
+        this.model = this.type;
+        break;
+      case 'int':
+        this.model = (this.baseDatas.tabType === 'leads') ? 'count' : 'int';
+        this.times = (this.baseDatas.tabType === 'leads');
+        break;
+      case 'event': 
+        this.model = 'count';
+        if (this.secondDatas.value && this.secondDatas.value.indexOf('relative')) {
+          this.times = false;
+        }
+        this.times = true;
+        break;
+      default:
+        this.model = 'other';
+    }
+  }
 }
 
 export default LastSelectController;
